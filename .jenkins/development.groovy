@@ -13,7 +13,7 @@ pipeline {
 
                 agent {
                     kubernetes {
-                        label "k8s-gradle-jdk${JDK}-agent"
+                        label "k8s-agent"
                     }
                 }
 
