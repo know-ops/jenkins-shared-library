@@ -18,7 +18,7 @@ pipeline {
                 stage('JDK8') {
                     agent {
                         kubernetes {
-                            label "gradle-jdk8"
+                            label "k8s-gradle-jdk8-agent"
                         }
                     }
 
@@ -33,7 +33,7 @@ pipeline {
                 stage('JDK11') {
                     agent {
                         kubernetes {
-                            label "gradle-jdk11"
+                            label "k8s-gradle-jdk11-agent"
                         }
                     }
 
@@ -48,7 +48,7 @@ pipeline {
                 stage('JDK14') {
                     agent {
                         kubernetes {
-                            label "gradle-jdk14"
+                            label "k8s-gradle-jdk14-agent"
                         }
                     }
 
