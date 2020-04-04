@@ -3,11 +3,9 @@ def printEnv() {
 }
 
 def gradleBuildTest() {
-    stage('Gradle Check') {
-        container('gradle') {
-            sh "gradle version"
-            sh "gradle check"
-        }
+    container('gradle') {
+        sh "gradle version"
+        sh "gradle check"
     }
 }
 
