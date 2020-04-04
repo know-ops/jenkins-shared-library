@@ -6,7 +6,7 @@ pipeline {
             matrix {
                 agent {
                     kubernetes {
-                        label "k8s-grade-jdk${JDK}-agent"
+                        label "k8s-gradle-jdk${JDK}-agent"
                     }
                 }
 
