@@ -12,9 +12,7 @@ pipeline {
                 }
 
                 agent {
-                    kubernetes {
-                        label "k8s-gradle-${JDK}-agent"
-                    }
+                    label "k8s-gradle-${JDK}-agent"
                 }
 
                 stages {
