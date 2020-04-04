@@ -7,13 +7,13 @@ pipeline {
                 axes {
                     axis {
                         name 'JDK'
-                        values '8', '11', '14'
+                        values 'jdk8', 'jdk11', 'jdk14'
                     }
                 }
 
                 agent {
                     kubernetes {
-                        label "k8s-agent"
+                        label "k8s-gradle-${JDK}-agent"
                     }
                 }
 
