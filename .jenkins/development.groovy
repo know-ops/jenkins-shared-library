@@ -1,36 +1,28 @@
 pipeline {
-    agent {
-      kubernetes {
-        label "k8s-agent"
-      }
-    }
+    agent none
+
     stages {
-        stage("A") {
-            steps{
-                echo "========executing A========"
+        stage('Build with Gradle') {
+            matrix {
+                agent {
+                    kubernetes {
+                        label "k8s-grade-jdk${JDK}-agent"
+                    }
+                }
+
+                axes {
+                    axis {
+                        name 'JDK'
+                        values '8', '11', '14'
+                    }
+                }
+
+                stages {
+                    stage('Testing Matrix') {
+                        sh 'printenv | sort'
+                    }
+                }
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
-            }
-        }
-    }
-    post {
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
         }
     }
 }
