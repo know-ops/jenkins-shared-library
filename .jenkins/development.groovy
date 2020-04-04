@@ -2,6 +2,14 @@ def printEnv() {
     sh 'printenv | sort'
 }
 
+def gradleBuildTest() {
+    stages {
+        stage('Gradle Check') {
+            sh "gradle check"
+        }
+    }
+}
+
 pipeline {
     agent none
 
@@ -15,9 +23,7 @@ pipeline {
                         }
                     }
 
-                    steps {
-                        printEnv()
-                    }
+                    gradleBuildTest()
                 }
                 stage('JDK11') {
                     agent {
@@ -26,9 +32,7 @@ pipeline {
                         }
                     }
 
-                    steps {
-                        printEnv()
-                    }
+                    gradleBuildTest()
                 }
                 stage('JDK14') {
                     agent {
@@ -37,9 +41,7 @@ pipeline {
                         }
                     }
 
-                    steps {
-                        printEnv()
-                    }
+                    gradleBuildTest()
                 }
             }
         }
