@@ -22,7 +22,11 @@ pipeline {
                     }
 
                     stages {
-                        gradleBuildTest()
+                        stage('Gradle Check') {
+                            steps {
+                                gradleBuildTest()
+                            }
+                        }
                     }
                 }
                 stage('JDK11') {
@@ -33,7 +37,11 @@ pipeline {
                     }
 
                     stages {
-                        gradleBuildTest()
+                        stage('Gradle Check') {
+                            steps {
+                                gradleBuildTest()
+                            }
+                        }
                     }
                 }
                 stage('JDK14') {
@@ -44,7 +52,11 @@ pipeline {
                     }
 
                     stages {
-                        gradleBuildTest()
+                        stage('Gradle Check') {
+                            steps {
+                                gradleBuildTest()
+                            }
+                        }
                     }
                 }
             }
