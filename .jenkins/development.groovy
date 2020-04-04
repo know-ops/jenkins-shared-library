@@ -1,3 +1,7 @@
+def printEnv() {
+    sh 'printenv | sort'
+}
+
 pipeline {
     agent none
 
@@ -12,7 +16,7 @@ pipeline {
                     }
 
                     steps {
-                        sh 'printenv | sort'
+                        printEnv()
                     }
                 }
                 stage('JDK11') {
@@ -23,7 +27,7 @@ pipeline {
                     }
 
                     steps {
-                        sh 'printenv | sort'
+                        printEnv()
                     }
                 }
                 stage('JDK14') {
@@ -34,7 +38,7 @@ pipeline {
                     }
 
                     steps {
-                        sh 'printenv | sort'
+                        printEnv()
                     }
                 }
             }
