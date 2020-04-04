@@ -3,23 +3,38 @@ pipeline {
 
     stages {
         stage('Build with Gradle') {
-            matrix {
-                axes {
-                    axis {
-                        name 'JDK'
-                        values 'jdk8', 'jdk11', 'jdk14'
+            parallel {
+                stage('JDK8') {
+                    agent {
+                        kubernetes {
+                            label "k8s-gradle-jdk8-agent"
+                        }
+                    }
+
+                    steps {
+                        sh 'printenv | sort'
                     }
                 }
-
-                agent {
-                    label "k8s-gradle-${JDK}-agent"
-                }
-
-                stages {
-                    stage('Testing Matrix') {
-                        steps {
-                            sh 'printenv | sort'
+                stage('JDK11') {
+                    agent {
+                        kubernetes {
+                            label "k8s-gradle-jdk11-agent"
                         }
+                    }
+
+                    steps {
+                        sh 'printenv | sort'
+                    }
+                }
+                stage('JDK14') {
+                    agent {
+                        kubernetes {
+                            label "k8s-gradle-jdk14-agent"
+                        }
+                    }
+
+                    steps {
+                        sh 'printenv | sort'
                     }
                 }
             }
