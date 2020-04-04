@@ -4,7 +4,7 @@ def printEnv() {
 
 def gradleBuildTest() {
     container('gradle') {
-        sh "gradle version"
+        sh "sleep 300 && gradle version"
         sh "gradle check"
     }
 }
@@ -18,7 +18,7 @@ pipeline {
                 stage('JDK8') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk8-agent"
+                            label "gradle-jdk8"
                         }
                     }
 
@@ -33,7 +33,7 @@ pipeline {
                 stage('JDK11') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk11-agent"
+                            label "gradle-jdk11"
                         }
                     }
 
@@ -48,7 +48,7 @@ pipeline {
                 stage('JDK14') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk14-agent"
+                            label "gradle-jdk14"
                         }
                     }
 
