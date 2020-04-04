@@ -19,7 +19,9 @@ pipeline {
 
                 stages {
                     stage('Testing Matrix') {
-                        sh 'printenv | sort'
+                        steps {
+                            sh 'printenv | sort'
+                        }
                     }
                 }
             }
