@@ -3,10 +3,8 @@ def printEnv() {
 }
 
 def gradleBuildTest() {
-    stages {
-        stage('Gradle Check') {
-            sh "gradle check"
-        }
+    stage('Gradle Check') {
+        sh "gradle check"
     }
 }
 
@@ -23,7 +21,9 @@ pipeline {
                         }
                     }
 
-                    gradleBuildTest()
+                    stages {
+                        gradleBuildTest()
+                    }
                 }
                 stage('JDK11') {
                     agent {
@@ -32,7 +32,9 @@ pipeline {
                         }
                     }
 
-                    gradleBuildTest()
+                    stages {
+                        gradleBuildTest()
+                    }
                 }
                 stage('JDK14') {
                     agent {
@@ -41,7 +43,9 @@ pipeline {
                         }
                     }
 
-                    gradleBuildTest()
+                    stages {
+                        gradleBuildTest()
+                    }
                 }
             }
         }
