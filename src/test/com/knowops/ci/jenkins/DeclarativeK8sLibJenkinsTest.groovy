@@ -1,5 +1,8 @@
 package com.knowops.ci.jenkins
 
+import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
+import static com.lesfurets.jenkins.unit.global.lib.ProjectSource.projectSource
+
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
@@ -7,10 +10,22 @@ import org.junit.jupiter.api.TestInstance.Lifecycle
 import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
 
 @TestInstance(Lifecycle.PER_CLASS)
-class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {\
+class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {
+  String sharedLibs = ''
+
   @BeforeAll
   void setUp() {
     super.setUp()
+
+    def library = library().name('jenkins-shared-library')
+                          .defaultVersion('<notNeeded>')
+                          .allowOverride(true)
+                          .implicit(false)
+                          .targetPath('<notNeeded>')
+                          .retrriever(projectSource())
+                          .build()
+    
+    helper.registerSharedLibrary(library)
   }
 
   @Test

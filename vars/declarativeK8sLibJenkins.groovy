@@ -32,7 +32,7 @@ def call() {
                         stage('Gradle Check') {
                             steps {
                                 container('openjdk') {
-                                    sh "./gradlew check"
+                                    sh "./gradlew --no-daemon check"
                                 }
                             }
 
