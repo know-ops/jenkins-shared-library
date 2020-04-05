@@ -20,6 +20,9 @@ def matrixK8sLabel(Map opt = [:]) {
     String cloud = opt.get('cloud', 'kubernetes')
     def retVal = [:]
 
+    printf label
+    printf cloud
+
     retVal['cloud'] = cloud
     retVal['label'] = label
 
