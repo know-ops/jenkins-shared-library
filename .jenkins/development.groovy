@@ -1,14 +1,15 @@
 def printEnv() {
     sh 'printenv | sort'
     sh 'ls -la'
+    container('gradle') {
+        sh './gradlew -v'
+        sh './gradlew task'
+    }
 }
 
 def gradleBuildTest() {
     container('gradle') {
-        sh "pwd"
-        sh "ls -la"
-        sh "gradle -v"
-        sh "gradle task"
+        sh "./gradlew check"
     }
 }
 
@@ -21,7 +22,7 @@ pipeline {
                 stage('JDK8') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk8-agent"
+                            label "k8s-openjdk8-agent"
                         }
                     }
 
@@ -41,7 +42,7 @@ pipeline {
                 stage('JDK11') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk11-agent"
+                            label "k8s-openjdk11-agent"
                         }
                     }
 
@@ -61,7 +62,7 @@ pipeline {
                 stage('JDK14') {
                     agent {
                         kubernetes {
-                            label "k8s-gradle-jdk14-agent"
+                            label "k8s-openjdk14-agent"
                         }
                     }
 
