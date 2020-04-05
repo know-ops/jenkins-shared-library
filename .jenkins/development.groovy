@@ -8,7 +8,7 @@ def printEnv() {
 }
 
 def gradleBuildTest() {
-    container('gradle') {
+    container('openjdk') {
         sh "./gradlew check"
     }
 }
