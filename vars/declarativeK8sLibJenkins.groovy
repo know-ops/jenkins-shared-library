@@ -33,7 +33,7 @@ def call() {
             stage('Build with Gradle') {
                 matrix {
                     agent {
-                        kubernetes(matrixK8sLabel("k8s-${JDK}-agent"))
+                        kubernetes(label: matrixK8sLabel("k8s-${JDK}-agent"))
                     }
 
                     axes {
