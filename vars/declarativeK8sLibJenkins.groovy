@@ -22,6 +22,12 @@ def call() {
         stages {
             stage('Build with Gradle') {
                 matrix {
+                    agent {
+                        kubernetes {
+                            label = "k8s-${PLATFORM}-agent"
+                        }
+                    }
+
                     axes {
                         axis {
                             name 'PLATFORM'
@@ -30,35 +36,14 @@ def call() {
 
                     }
                     stages {
-                        stage('Initialization') {
+                        stage('Gradle Validation') {
                             steps {
-                                echo "JDK: ${PLATFORM}"
-                                script {
-                                    def buildOnLabel = "k8s-${PLATFORM}-agent"
-
-                                    buildNode = k8sAgentLabel(label: buildOnLabel)
-
-                                    echo "buildOnLabel: ${buildOnLabel}"
-                                }
+                                gradleValidate()
                             }
                         }
-
-                        stage('Gradle') {
-                            agent {
-                                kubernetes(buildNode as Map)
-                            }
-
-                            stages {
-                                stage('Gradle Validation') {
-                                    steps {
-                                        gradleValidate()
-                                    }
-                                }
-                                stage('Gradle Check') {
-                                    steps {
-                                        gradleBuildTest()
-                                    }
-                                }
+                        stage('Gradle Check') {
+                            steps {
+                                gradleBuildTest()
                             }
                         }
                     }
