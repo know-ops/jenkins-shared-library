@@ -8,14 +8,15 @@ import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
 
 @TestInstance(Lifecycle.PER_CLASS)
 class TestExampleDeclarativeJob extends DeclarativePipelineTest {\
-        @BeforeAll
-        void setUp() {
-          super.setUp()
-        }
-        @Test
-        void should_execute_without_errors() throws Exception {
-            def script = runScript("./.jenkins/development.groovy")
-            assertJobStatusSuccess()
-            printCallStack()
-        }
+  @BeforeAll
+  void setUp() {
+    super.setUp()
+  }
+
+  @Test
+  void should_execute_without_errors() throws Exception {
+      def script = runScript("./.jenkins/development.groovy")
+      assertJobStatusSuccess()
+      printCallStack()
+  }
 }
