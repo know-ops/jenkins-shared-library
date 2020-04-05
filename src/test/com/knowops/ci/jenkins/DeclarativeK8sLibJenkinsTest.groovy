@@ -7,7 +7,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle
 import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
 
 @TestInstance(Lifecycle.PER_CLASS)
-class TestExampleDeclarativeJob extends DeclarativePipelineTest {\
+class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {\
   @BeforeAll
   void setUp() {
     super.setUp()
