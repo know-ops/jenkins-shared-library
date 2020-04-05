@@ -23,6 +23,11 @@ pipeline {
                     }
 
                     stages {
+                        stage('Print Environment') {
+                            steps {
+                                printEnv()
+                            }
+                        }
                         stage('Gradle Check') {
                             steps {
                                 gradleBuildTest()
@@ -38,6 +43,11 @@ pipeline {
                     }
 
                     stages {
+                        stage('Print Environment') {
+                            steps {
+                                printEnv()
+                            }
+                        }
                         stage('Gradle Check') {
                             steps {
                                 gradleBuildTest()
@@ -53,6 +63,11 @@ pipeline {
                     }
 
                     stages {
+                        stage('Print Environment') {
+                            steps {
+                                printEnv()
+                            }
+                        }
                         stage('Gradle Check') {
                             steps {
                                 gradleBuildTest()
