@@ -24,7 +24,7 @@ def call() {
                 matrix {
                     agent {
                         kubernetes {
-                            label = "k8s-${PLATFORM}-agent"
+                            label "k8s-${PLATFORM}-agent"
                         }
                     }
 
