@@ -15,8 +15,16 @@ class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {\
 
   @Test
   void should_execute_without_errors() throws Exception {
+      def BRANCH_NAME = 'feature/testing_success'
       def script = runScript("./.jenkins/development.groovy")
       assertJobStatusSuccess()
+      printCallStack()
+  }
+
+  @Test
+  void should_not_execute() throws Exception {
+      def BRANCH_NAME = 'master'
+      def script = runScript("./.jenkins/development.groovy")
       printCallStack()
   }
 }
