@@ -1,6 +1,4 @@
-def printEnv() {
-    sh 'printenv | sort'
-    sh 'ls -la'
+def gradleValidate() {
     container('openjdk') {
         sh './gradlew -v'
         sh './gradlew task'
@@ -27,9 +25,9 @@ pipeline {
                     }
 
                     stages {
-                        stage('Print Environment') {
+                        stage('Gradle Validation') {
                             steps {
-                                printEnv()
+                                gradleValidate()
                             }
                         }
                         stage('Gradle Check') {
@@ -47,9 +45,9 @@ pipeline {
                     }
 
                     stages {
-                        stage('Print Environment') {
+                        stage('Gradle Validation') {
                             steps {
-                                printEnv()
+                                gradleValidate()
                             }
                         }
                         stage('Gradle Check') {
@@ -67,9 +65,9 @@ pipeline {
                     }
 
                     stages {
-                        stage('Print Environment') {
+                        stage('Gradle Validation') {
                             steps {
-                                printEnv()
+                                gradleValidate()
                             }
                         }
                         stage('Gradle Check') {
