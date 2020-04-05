@@ -24,7 +24,7 @@ def call() {
                 matrix {
                     axes {
                         axis {
-                            name 'JDK'
+                            name 'PLATFORM'
                             values 'openjdk8', 'openjdk11', 'openjdk14'
                         }
 
@@ -32,9 +32,9 @@ def call() {
                     stages {
                         stage('Initialization') {
                             steps {
-                                echo "JDK: ${JDK}"
+                                echo "JDK: ${PLATFORM}"
                                 script {
-                                    def buildOnLabel = "k8s-${JDK}-agent"
+                                    def buildOnLabel = "k8s-${PLATFORM}-agent"
 
                                     buildNode = k8sAgentLabel(label: buildOnLabel)
 
