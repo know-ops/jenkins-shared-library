@@ -5,7 +5,7 @@ def printEnv() {
 def gradleBuildTest() {
     container('gradle') {
         sh "gradle -v"
-        sh "gradle install"
+        sh "gradle check"
     }
 }
 
