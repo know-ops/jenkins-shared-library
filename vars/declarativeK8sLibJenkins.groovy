@@ -49,7 +49,7 @@ def call() {
                         stage('Initialization') {
                             steps {
                                 script {
-                                    def buildOnLabel = 'k8s-${JDK}-agent'
+                                    def buildOnLabel = "k8s-${JDK}-agent"
 
                                     buildNode = matrixK8sLabel(label: buildOnLabel)
 
