@@ -13,22 +13,6 @@ def gradleBuildTest() {
     }
 }
 
-def matrixK8sLabel(Map opt = [:]) {
-    String name = opt.get('name','k8s-agen')
-    String defaultLabel = "${name.replace('+','_')}-${UUID.randomUUID().toString()}"
-    String label = opt.get('label', defaultLabel)
-    String cloud = opt.get('cloud', 'kubernetes')
-    def retVal = [:]
-
-    printf label
-    printf cloud
-
-    retVal['cloud'] = cloud
-    retVal['label'] = label
-
-    return retVal
-}
-
 def buildNode = [:]
 
 def call() {
@@ -52,7 +36,7 @@ def call() {
                                 script {
                                     def buildOnLabel = "k8s-${JDK}-agent"
 
-                                    buildNode = matrixK8sLabel(label: buildOnLabel)
+                                    buildNode = k8sAgentLabel(label: buildOnLabel)
 
                                     echo "buildOnLabel: ${buildOnLabel}"
                                 }
