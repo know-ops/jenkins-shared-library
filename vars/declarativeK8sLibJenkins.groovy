@@ -46,7 +46,7 @@ def call() {
 
                     }
                     stages {
-                        stages('Initialization') {
+                        stage('Initialization') {
                             steps {
                                 script {
                                     def buildOnLabel = 'k8s-${JDK}-agent'
