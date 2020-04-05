@@ -51,7 +51,7 @@ def call() {
                                 script {
                                     def buildOnLabel = 'k8s-${JDK}-agent'
 
-                                    buildNode = k8sAgent(label: buildOnLabel)
+                                    buildNode = matrixK8sLabel(label: buildOnLabel)
 
                                     echo "buildOnLabel: ${buildOnLabel}"
                                 }
