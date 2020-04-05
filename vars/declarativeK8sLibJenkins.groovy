@@ -25,7 +25,7 @@ def call() {
                             steps {
                                 container('openjdk') {
                                     sh './gradlew -v'
-                                    sh './gradlew task'
+                                    sh './gradlew --no-daemon task'
                                 }
                             }
                         }

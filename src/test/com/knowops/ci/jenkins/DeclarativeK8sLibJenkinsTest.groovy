@@ -22,7 +22,7 @@ class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {
                           .allowOverride(true)
                           .implicit(false)
                           .targetPath('<notNeeded>')
-                          .retrriever(projectSource())
+                          .retriever(projectSource())
                           .build()
     
     helper.registerSharedLibrary(library)
