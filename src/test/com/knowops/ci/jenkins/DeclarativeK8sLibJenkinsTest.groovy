@@ -3,19 +3,24 @@ package com.knowops.ci.jenkins
 import static com.lesfurets.jenkins.unit.global.lib.LibraryConfiguration.library
 import static com.lesfurets.jenkins.unit.global.lib.ProjectSource.projectSource
 
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.TestInstance.Lifecycle
 import com.lesfurets.jenkins.unit.declarative.DeclarativePipelineTest
+import org.junit.Before
+import org.junit.Test
+import static com.lesfurets.jenkins.unit.MethodCall.callArgsToString
+import static org.junit.Assert.assertTrue
+import static org.junit.Assert.assertFalse
+import static org.junit.Assert.assertEquals
+import static org.junit.Assert.assertNotNull
 
-@TestInstance(Lifecycle.PER_CLASS)
 class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {
   String sharedLibs = ''
 
-  @BeforeAll
-  void setUp() {
-    super.setUp()
+  @Before
+  void setUp() throws Exception {
+    super.setUp() 
+
+    binding.setVariable('env', env)
+    binding.setVariable('scm', new String())
 
     def library = library().name('jenkins-shared-library')
                           .defaultVersion('<notNeeded>')
@@ -30,16 +35,14 @@ class DeclarativeK8sLibJenkinsTest extends DeclarativePipelineTest {
 
   @Test
   void should_execute_without_errors() throws Exception {
-      def BRANCH_NAME = 'feature/testing_success'
-      def script = runScript("./.jenkins/development.groovy")
+      def script = runScript("./src/test/resources/pipelines/declarativeK8sLibJenkins.groovy")
       assertJobStatusSuccess()
       printCallStack()
   }
 
   @Test
   void should_not_execute() throws Exception {
-      def BRANCH_NAME = 'master'
-      def script = runScript("./.jenkins/development.groovy")
+      def script = runScript("./src/test/resources/pipelines/declarativeK8sLibJenkins.groovy")
       printCallStack()
   }
 }

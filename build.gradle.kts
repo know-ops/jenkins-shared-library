@@ -18,6 +18,7 @@ tasks.withType<Test> {
 
 dependencies {
     compileOnly("org.codehaus.groovy:groovy-all:3.0.2")
+    testImplementation("junit:junit:4.12")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
     testImplementation("com.lesfurets:jenkins-pipeline-unit:1.3")
     testImplementation("org.mockito:mockito-core:3.3.3")
