@@ -1,5 +1,19 @@
 #!/usr/bin/env groovy
 
+def gradleValidate() {
+    container('openjdk') {
+        sh './gradlew -v'
+        sh './gradlew task'
+    }
+}
+
+def gradleBuildTest() {
+    container('openjdk') {
+        sh "./gradlew check"
+    }
+}
+
+
 def call() {
     pipeline {
         agent none
