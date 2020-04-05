@@ -1,7 +1,7 @@
 def printEnv() {
     sh 'printenv | sort'
     sh 'ls -la'
-    container('gradle') {
+    container('openjdk') {
         sh './gradlew -v'
         sh './gradlew task'
     }
