@@ -48,6 +48,7 @@ def call() {
                     stages {
                         stage('Initialization') {
                             steps {
+                                echo "JDK: ${JDK}"
                                 script {
                                     def buildOnLabel = "k8s-${JDK}-agent"
 
