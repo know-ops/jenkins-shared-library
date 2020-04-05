@@ -13,6 +13,17 @@ def gradleBuildTest() {
     }
 }
 
+def matrixK8sLabel(Map opt = [:]) {
+    String defaultLabel = "${name.replace('+','_')}-${UUID.randomUUID().toString()}"
+    String label = opt.get('label', defaultLabel)
+    String cloud = opt.get('cloud', 'kubernetes')
+    def retVal = [:]
+
+    retVal['cloud'] = cloud
+    retVal['label'] = label
+
+    return retVal
+}
 
 def call() {
     pipeline {
@@ -20,64 +31,27 @@ def call() {
 
         stages {
             stage('Build with Gradle') {
-                parallel {
-                    stage('JDK8') {
-                        agent {
-                            kubernetes {
-                                label "k8s-openjdk8-agent"
-                            }
-                        }
-
-                        stages {
-                            stage('Gradle Validation') {
-                                steps {
-                                    gradleValidate()
-                                }
-                            }
-                            stage('Gradle Check') {
-                                steps {
-                                    gradleBuildTest()
-                                }
-                            }
-                        }
+                matrix {
+                    agent {
+                        kubernetes(matrixK8sLabel("k8s-${JDK}-agent"))
                     }
-                    stage('JDK11') {
-                        agent {
-                            kubernetes {
-                                label "k8s-openjdk11-agent"
-                            }
+
+                    axes {
+                        axis {
+                            name 'JDK'
+                            values 'openjdk8', 'openjdk11', 'openjdk14'
                         }
 
-                        stages {
-                            stage('Gradle Validation') {
-                                steps {
-                                    gradleValidate()
-                                }
-                            }
-                            stage('Gradle Check') {
-                                steps {
-                                    gradleBuildTest()
-                                }
-                            }
-                        }
                     }
-                    stage('JDK14') {
-                        agent {
-                            kubernetes {
-                                label "k8s-openjdk14-agent"
+                    stages {
+                        stage('Gradle Validation') {
+                            steps {
+                                gradleValidate()
                             }
                         }
-
-                        stages {
-                            stage('Gradle Validation') {
-                                steps {
-                                    gradleValidate()
-                                }
-                            }
-                            stage('Gradle Check') {
-                                steps {
-                                    gradleBuildTest()
-                                }
+                        stage('Gradle Check') {
+                            steps {
+                                gradleBuildTest()
                             }
                         }
                     }
