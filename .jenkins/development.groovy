@@ -1,11 +1,14 @@
 def printEnv() {
     sh 'printenv | sort'
+    sh 'ls -la'
 }
 
 def gradleBuildTest() {
     container('gradle') {
+        sh "pwd"
+        sh "ls -la"
         sh "gradle -v"
-        sh "gradle check"
+        sh "gradle task"
     }
 }
 
