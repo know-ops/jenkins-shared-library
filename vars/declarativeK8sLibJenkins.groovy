@@ -35,6 +35,12 @@ def call() {
                                     sh "./gradlew check"
                                 }
                             }
+
+                            post {
+                                always {
+                                    junit testResults: '**/build/test-results/*.xml', allowEmptyResults: false, keepLongStdio: true
+                                }
+                            }
                         }
                     }
                 }
