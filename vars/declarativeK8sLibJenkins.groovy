@@ -29,6 +29,8 @@ def matrixK8sLabel(Map opt = [:]) {
     return retVal
 }
 
+def buildNode = [:]
+
 def call() {
     pipeline {
         agent none
@@ -36,10 +38,6 @@ def call() {
         stages {
             stage('Build with Gradle') {
                 matrix {
-                    agent {
-                        kubernetes(matrixK8sLabel(label: "k8s-$JDK-agent"))
-                    }
-
                     axes {
                         axis {
                             name 'JDK'
@@ -48,14 +46,34 @@ def call() {
 
                     }
                     stages {
-                        stage('Gradle Validation') {
+                        stages('Initialization') {
                             steps {
-                                gradleValidate()
+                                script {
+                                    def buildOnLabel = 'k8s-${JDK}-agent'
+
+                                    buildNode = k8sAgent(label: buildOnLabel)
+
+                                    echo "buildOnLabel: ${buildOnLabel}"
+                                }
                             }
                         }
-                        stage('Gradle Check') {
-                            steps {
-                                gradleBuildTest()
+
+                        stage('Gradle') {
+                            agent {
+                                kubernetes(buildNode as Map)
+                            }
+
+                            stages {
+                                stage('Gradle Validation') {
+                                    steps {
+                                        gradleValidate()
+                                    }
+                                }
+                                stage('Gradle Check') {
+                                    steps {
+                                        gradleBuildTest()
+                                    }
+                                }
                             }
                         }
                     }
