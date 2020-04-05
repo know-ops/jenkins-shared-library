@@ -1,20 +1,5 @@
 #!/usr/bin/env groovy
 
-def gradleValidate() {
-    container('openjdk') {
-        sh './gradlew -v'
-        sh './gradlew task'
-    }
-}
-
-def gradleBuildTest() {
-    container('openjdk') {
-        sh "./gradlew check"
-    }
-}
-
-def buildNode = [:]
-
 def call() {
     pipeline {
         agent none
@@ -38,12 +23,17 @@ def call() {
                     stages {
                         stage('Gradle Validation') {
                             steps {
-                                gradleValidate()
+                                container('openjdk') {
+                                    sh './gradlew -v'
+                                    sh './gradlew task'
+                                }
                             }
                         }
                         stage('Gradle Check') {
                             steps {
-                                gradleBuildTest()
+                                container('openjdk') {
+                                    sh "./gradlew check"
+                                }
                             }
                         }
                     }
