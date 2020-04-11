@@ -3,7 +3,7 @@
 
 // declarativeK8sLibJenkins()
 
-pipepline {
+pipeline {
   agent {
     kubernetes {
       label "k8s-openjdk8-agent"
