@@ -12,7 +12,9 @@ pipeline {
 
   stages {
     stage('Print Environment') {
-      sh 'printenv | sort'
+      steps {
+        sh 'printenv | sort'
+      }
     }
   }
 }
