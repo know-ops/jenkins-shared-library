@@ -2,6 +2,7 @@
 package com.knowops.ci.jenkins
 
 import groovy.json.JsonSlurper
+import groovy.json.JsonParserType
 
 /**
  * Simple class to run a CI/CD pipeline
