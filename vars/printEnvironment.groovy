@@ -1,5 +1,7 @@
 #!/usr/bin/env groovy
 
+import groovy.lang.Closure
+
 import com.knowops.ci.jenkins.ProjectSpec
 
 call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure<?> c = null) {
