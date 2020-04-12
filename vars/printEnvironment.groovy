@@ -30,7 +30,7 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
                             echo """
 Name: ${project.name}
 Repository: ${project.repository}
-Langague: ${project.language}
+Language: ${project.language}
 Build Tool: ${project.buildTool}
                             """
                         }
@@ -45,7 +45,7 @@ Build Tool: ${project.buildTool}
                     stage('language') {
                         steps {
                             container('linguist') {
-                                sh 'linguist --breakdown'
+                                sh 'github-linguist --breakdown'
                             }
                         }
                     }
