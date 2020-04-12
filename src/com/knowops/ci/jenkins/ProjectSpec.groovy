@@ -14,7 +14,7 @@ class ProjectSpec implements Serializable {
     // This is the Jenkins steps object
     private final def steps
 
-    Project(def s) {
+    ProjectSpec(def s) {
         this.steps = s
     }
 
