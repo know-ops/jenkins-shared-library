@@ -14,6 +14,10 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
         c()
         // project.name = 'Jenkins Shared Library'
     }
+
+    if (!project.language) {
+        _ = project.language
+    }
     podTemplate(label: 'k8s-agent') {
         node('k8s-agent') {
             Map<Closure> tasks = [
