@@ -97,12 +97,8 @@ class ProjectSpec implements Serializable {
     }
 
     List<String> doLanguage() {
-        List<String> result
-
-        Object linguist = jsonSlurper.parseText(
-            this.language = this.parseJson(
-                this.steps.sh(script: 'github-linguist --json', returnStdout: true).keySet()
-            )
+        return this.parseJson(
+            this.steps.sh(script: 'github-linguist --json', returnStdout: true).keySet()
         )
     }
 
