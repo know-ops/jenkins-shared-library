@@ -98,6 +98,7 @@ class ProjectSpec implements Serializable {
 
     List<String> doLanguage() {
         return this.parseJson(
+            this.steps.checkout scm
             this.steps.sh(script: 'github-linguist --json', returnStdout: true).keySet()
         )
     }
