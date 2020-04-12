@@ -23,6 +23,6 @@ class WorkflowSpec implements Serializable {
         }
 
         // HACK: to make sure project language detection happens in it's own pod
-        _ = this.project.language
+        this.project.language
     }
 }
