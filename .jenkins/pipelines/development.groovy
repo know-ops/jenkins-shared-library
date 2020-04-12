@@ -14,6 +14,7 @@ pipeline {
     stage('Print Environment') {
       steps {
         sh 'printenv | sort'
+        echo "${env.GIT_URL}"
       }
     }
   }
