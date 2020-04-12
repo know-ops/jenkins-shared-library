@@ -11,7 +11,7 @@ class ProjectSpec implements Serializable {
 
     private String name
     private String repository
-    private List<String> language
+    private ArrayList<String> language
     private String buildTool
 
     // This is the Jenkins steps object
@@ -29,7 +29,7 @@ class ProjectSpec implements Serializable {
         this.repository = r
     }
 
-    void setLanguage(List<String> l) {
+    void setLanguage(ArrayList<String> l) {
         this.language = l
     }
 
@@ -65,7 +65,7 @@ class ProjectSpec implements Serializable {
      * If set, returns the primary language used, otherwise tries to determine
      * based on the current directory
      */
-    List<String> getLanguage() {
+    ArrayList<String> getLanguage() {
         if (this.language) {
             return this.language
         }
@@ -97,10 +97,10 @@ class ProjectSpec implements Serializable {
         return ""
     }
 
-    List<String> doLanguage() {
+    ArrayList<String> doLanguage() {
         return this.parseJson(
             this.steps.sh(script: 'github-linguist --json', returnStdout: true)
-        ).keySet()
+        ).keySet() as ArrayList
     }
 
     @NonCPS
