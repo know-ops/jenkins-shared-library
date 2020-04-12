@@ -44,7 +44,7 @@ Build Tool: ${project.buildTool}
 
                     stage('language') {
                         steps {
-                            container('linguist')
+                            container('linguist') {
                                 sh 'linguist --breakdown'
                             }
                         }
