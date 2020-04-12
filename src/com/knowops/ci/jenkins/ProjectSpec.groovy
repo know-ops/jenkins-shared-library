@@ -19,6 +19,7 @@ class ProjectSpec implements Serializable {
     }
 
     void setName(String n) {
+        println "Setting name to: ${n}"
         this.name = n
     }
 
