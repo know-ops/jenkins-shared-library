@@ -8,6 +8,7 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
     def project = new ProjectSpec(this)
 
     if (c != null) {
+        println 'Closure Not Null'
         def code = c.rehydrate(project, this, this)
         code.resolveStrategy = Closure.DELEGATE_ONLY
         code()
