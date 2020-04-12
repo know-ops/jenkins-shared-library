@@ -18,25 +18,37 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
     pipeline {
         agent {
             kubernetes {
-                label "k8s-openjdk8-agent"
+                label "k8s-github-linguist-agent"
             }
         }
 
         stages {
-            stage('project') {
-                steps {
-                    echo """
+            stage('print build environment') {
+                parallel {
+                    stage('project') {
+                        steps {
+                            echo """
 Name: ${project.name}
 Repository: ${project.repository}
 Langague: ${project.language}
 Build Tool: ${project.buildTool}
-                    """
-                }
-            }
+                            """
+                        }
+                    }
 
-            stage('environment') {
-                steps {
-                    sh "printenv | sort"
+                    stage('environment') {
+                        steps {
+                            sh "printenv | sort"
+                        }
+                    }
+
+                    stage('language') {
+                        steps {
+                            container('linguist')
+                                sh 'linguist --breakdown'
+                            }
+                        }
+                    }
                 }
             }
         }
