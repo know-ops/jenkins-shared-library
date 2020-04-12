@@ -24,6 +24,8 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
             node('k8s-agent') {
                 checkout scm
 
+                sh "printenv | sort"
+
                 Map<Closure> tasks = [
                     'project': {
                         echo """
