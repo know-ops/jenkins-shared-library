@@ -2,5 +2,5 @@
 library "jenkins-shared-library@$BRANCH_NAME"
 
 printEnvironment {
-    setName 'Jenkins Shared Library'
+    name = 'Jenkins Shared Library'
 }

@@ -8,9 +8,10 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
     def project = new ProjectSpec(this)
 
     if (c != null) {
-        def code = c.rehydrate(project, this, this)
-        code.resolveStrategy = Closure.DELEGATE_ONLY
-        code()
+        // def code = c.rehydrate(project, this, this)
+        c.resolveStrategy = Closure.DELEGATE_FIRST
+        c.delegate = project
+        c()
         // project.name = 'Jenkins Shared Library'
     }
 
