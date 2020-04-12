@@ -16,7 +16,7 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
     }
     podTemplate(label: 'k8s-agent') {
         node('k8s-agent') {
-            Map<Closure> tasks = {
+            Map<Closure> tasks = [
                 'project': {
                     echo """
     Name: ${project.name}
@@ -36,7 +36,7 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
                         sh 'github-linguist --breakdown --json'
                     }
                 }
-            }
+            ]
 
             parallel(tasks)
         }
