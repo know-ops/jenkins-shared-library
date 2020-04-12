@@ -22,7 +22,6 @@ class ProjectSpec implements Serializable {
     }
 
     void setName(String n) {
-        println "Setting name to: ${n}"
         this.name = n
     }
 
@@ -30,7 +29,7 @@ class ProjectSpec implements Serializable {
         this.repository = r
     }
 
-    void setLanguage(String l) {
+    void setLanguage(List<String> l) {
         this.language = l
     }
 
@@ -66,7 +65,7 @@ class ProjectSpec implements Serializable {
      * If set, returns the primary language used, otherwise tries to determine
      * based on the current directory
      */
-    String getLanguage() {
+    List<String> getLanguage() {
         if (this.language) {
             return this.language
         }
@@ -100,10 +99,17 @@ class ProjectSpec implements Serializable {
     List<String> doLanguage() {
         List<String> result
 
+        Object linguist = jsonSlurper.parseText(
+            this.language = this.parseJson(
+                this.steps.sh(script: 'github-linguist --json', returnStdout: true).keySet()
+            )
+        )
+    }
+
+    @NonCPS
+    Object parseJson(String txt) {
         JsonSlurper jsonSlurper = new JsonSlurper().setType(JsonParserType.LAX)
 
-        Object linguist = jsonSlurper.parseText(
-            this.steps.sh(script: 'github-linguist --json', returnStdout: true)
-        )
+        return jsonSlurper.parseText(txt)
     }
 }
