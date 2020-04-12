@@ -18,31 +18,28 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
     if (!project.language) {
         _ = project.language
     }
-    podTemplate(label: 'k8s-agent') {
-        node('k8s-agent') {
-            Map<Closure> tasks = [
-                'project': {
-                    echo """
-    Name: ${project.name}
-    Repository: ${project.repository}
-    Language: ${project.language}
-    Build Tool: ${project.buildTool}
-                    """
-                },
-                'environment': {
-                    sh "printenv | sort"
-                },
-                'language': {
-                    container('linguist') {
-                        sh 'github-linguist'
-                        sh 'github-linguist --breakdown'
-                        sh 'github-linguist --json'
-                        sh 'github-linguist --breakdown --json'
-                    }
-                }
-            ]
 
-            parallel(tasks)
+    stage('display environment') {
+        podTemplate(label: 'k8s-agent') {
+            node('k8s-agent') {
+                checkout scm
+
+                Map<Closure> tasks = [
+                    'project': {
+                        echo """
+Name: ${project.name}
+Repository: ${project.repository}
+Language: ${project.language}
+Build Tool: ${project.buildTool}
+                        """
+                    },
+                    'environment': {
+                        sh "printenv | sort"
+                    }
+                ]
+
+                parallel(tasks)
+            }
         }
     }
 }
