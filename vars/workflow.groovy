@@ -5,7 +5,7 @@ import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.WorkflowSpec
 
-call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=WorkflowSpec) Closure<?> wf) {
+def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=WorkflowSpec) Closure<?> wf) {
     WorkflowSpec workflow = new WorkflowSpec()
 
     wf.resolveStrategy = Closure.DELEGATE_FIRST
