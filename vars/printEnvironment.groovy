@@ -45,7 +45,10 @@ Build Tool: ${project.buildTool}
                     stage('language') {
                         steps {
                             container('linguist') {
+                                sh 'github-linguist'
                                 sh 'github-linguist --breakdown'
+                                sh 'github-linguist --json'
+                                sh 'github-linguist --breakdown --json'
                             }
                         }
                     }
