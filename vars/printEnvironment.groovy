@@ -1,10 +1,10 @@
 #!/usr/bin/env groovy
 
-import groovy.lang.Closure
+import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.ProjectSpec
 
-call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure<?> c = null) {
+def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure<?> c = null) {
     def project = new ProjectSpec(this)
 
     if (c != null) {
