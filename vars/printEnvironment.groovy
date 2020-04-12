@@ -24,10 +24,10 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
             stage('project') {
                 steps {
                     echo """
-                        Name: ${project.name}
-                        Repository: ${project.repository}
-                        Langague: ${project.language}
-                        Build Tool: ${project.buildTool}
+Name: ${project.name}
+Repository: ${project.repository}
+Langague: ${project.language}
+Build Tool: ${project.buildTool}
                     """
                 }
             }
