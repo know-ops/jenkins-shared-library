@@ -14,46 +14,31 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
         c()
         // project.name = 'Jenkins Shared Library'
     }
-
-    pipeline {
-        agent {
-            kubernetes {
-                label "k8s-github-linguist-agent"
-            }
-        }
-
-        stages {
-            stage('print build environment') {
-                parallel {
-                    stage('project') {
-                        steps {
-                            echo """
-Name: ${project.name}
-Repository: ${project.repository}
-Language: ${project.language}
-Build Tool: ${project.buildTool}
-                            """
-                        }
-                    }
-
-                    stage('environment') {
-                        steps {
-                            sh "printenv | sort"
-                        }
-                    }
-
-                    stage('language') {
-                        steps {
-                            container('linguist') {
-                                sh 'github-linguist'
-                                sh 'github-linguist --breakdown'
-                                sh 'github-linguist --json'
-                                sh 'github-linguist --breakdown --json'
-                            }
-                        }
+    podTemplate(label: 'k8s-agent') {
+        node('k8s-agent') {
+            Map<Closure> tasks = {
+                'project': {
+                    echo """
+    Name: ${project.name}
+    Repository: ${project.repository}
+    Language: ${project.language}
+    Build Tool: ${project.buildTool}
+                    """
+                },
+                'environment': {
+                    sh "printenv | sort"
+                },
+                'language': {
+                    container('linguist') {
+                        sh 'github-linguist'
+                        sh 'github-linguist --breakdown'
+                        sh 'github-linguist --json'
+                        sh 'github-linguist --breakdown --json'
                     }
                 }
             }
+
+            parallel(tasks)
         }
     }
 }

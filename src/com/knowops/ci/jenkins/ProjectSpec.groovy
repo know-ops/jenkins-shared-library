@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins
 
+import groovy.json.JsonSlurper
+
 /**
  * Simple class to run a CI/CD pipeline
  */
@@ -8,7 +10,7 @@ class ProjectSpec implements Serializable {
 
     private String name
     private String repository
-    private String language
+    private List<String> language
     private String buildTool
 
     // This is the Jenkins steps object
@@ -68,8 +70,16 @@ class ProjectSpec implements Serializable {
             return this.language
         }
 
-        // TO-DO: attempt to auto-destect project type
-        return ""
+        // TO-DO: split between different environments, i.e. bare metal, kubernetes, docker, etc.
+        this.steps.podTemplate(label: 'k8s-github-linguist-agent') {
+            this.steps.node('k8s-github-linguist-agent') {
+                this.steps.container('linguist') {
+                    this.language = this.doLanguage()
+                }
+            }
+        }
+
+        return this.language
     }
 
     /**
@@ -86,4 +96,13 @@ class ProjectSpec implements Serializable {
         return ""
     }
 
+    List<String> doLanguage() {
+        List<String> result
+
+        JsonSlurper jsonSlurper = new JsonSlurper().setType(JsonParserType.LAX)
+
+        Object linguist = jsonSlurper.parseText(
+            this.steps.sh(script: 'github-linguist --json', returnStdout: true)
+        )
+    }
 }
