@@ -58,7 +58,7 @@ class ProjectSpec implements Serializable {
             return this.repository
         }
 
-        return this.steps.env.GIT_URL
+        return this.steps.scm.userRemoteConfigs[0].url
     }
 
     /**
