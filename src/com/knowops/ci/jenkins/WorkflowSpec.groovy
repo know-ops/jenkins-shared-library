@@ -14,7 +14,7 @@ class WorkflowSpec implements Serializable {
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj) {
-        this.project = new ProjectSpec()
+        this.project = new ProjectSpec(this.steps)
 
         if (pj) {
             pj.resolveStrategy = Closure.DELEGATE_FIRST
