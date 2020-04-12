@@ -73,7 +73,7 @@ class ProjectSpec implements Serializable {
         // TO-DO: split between different environments, i.e. bare metal, kubernetes, docker, etc.
         this.steps.podTemplate(label: 'k8s-github-linguist-agent') {
             this.steps.node('k8s-github-linguist-agent') {
-                this.steps.checkout scm
+                this.steps.checkout this.steps.scm
                 this.steps.container('linguist') {
                     this.language = this.doLanguage()
                 }
