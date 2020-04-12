@@ -2,7 +2,7 @@
 
 import com.knowops.ci.jenkins.ProjectSpec
 
-call(@DelegateTo(value = ProjectSpec, strategy = Closure.DELEGATE_ONLY) Closure<?> c = null) {
+call(@DelegatesTo(value = ProjectSpec, strategy = Closure.DELEGATE_ONLY) Closure<?> c = null) {
     def project = new ProjectSpec(this)
 
     if (c != null) {
