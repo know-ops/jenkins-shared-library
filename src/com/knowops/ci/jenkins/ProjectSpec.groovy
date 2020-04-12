@@ -43,7 +43,7 @@ class ProjectSpec implements Serializable {
             return this.name
         }
 
-        return this.getRepository().GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+        return this.getRepository().replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
     }
 
     /**
