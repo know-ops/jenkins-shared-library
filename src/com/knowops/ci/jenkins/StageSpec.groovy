@@ -36,7 +36,6 @@ class StageSpec {
         try {
             if (this.agent) {
                 this.agent(this.stepsClosure)
-                }
             } else {
                 this.stepsClosure()
             }
