@@ -16,16 +16,20 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closur
 
         stages {
             stage('project') {
-                echo """
+                steps {
+                    echo """
 Name: ${project.name}
 Repository: ${project.repository}
 Language: ${project.language}
 Build Tool: ${project.buildTool}
-                """
+                    """
+                }
             }
 
             stage('environment') {
-                sh 'printenv | sort'
+                steps {
+                    sh 'printenv | sort'
+                }
             }
         }
     }
