@@ -43,7 +43,7 @@ class WorkflowSpec implements Serializable {
         // TO-DO: Throw exception if stages alredy set
         // TO-DO: Throw exception if parallel or matrix already set
 
-        StagesSpec this.stages = new StagesSpec(this.steps)
+        this.stages = new StagesSpec(this.steps)
 
         stages.resolveStrategy = Closure.DELEGATE_FIRST
         stages.delegate = this.stages
