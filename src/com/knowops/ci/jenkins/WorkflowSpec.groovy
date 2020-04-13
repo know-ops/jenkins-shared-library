@@ -74,6 +74,6 @@ class WorkflowSpec implements Serializable {
 
     @NonCPS
     private Closure<?> stagesClosure() {
-        return this.&stages
+        return this.stages.&call
     }
 }
