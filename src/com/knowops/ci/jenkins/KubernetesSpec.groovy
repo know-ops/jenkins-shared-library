@@ -5,7 +5,7 @@ class KubernetesSpec {
 
     private String label
 
-    Object step
+    private final Object steps
 
     KubernetesSpec(Object s) {
         this.steps = s
