@@ -26,6 +26,7 @@ class StageSpec {
     }
 
     void steps(Closure<?> s) {
+        this.steps.echo 'Inside Steps'
         this.stepsClosure = s
     }
 
