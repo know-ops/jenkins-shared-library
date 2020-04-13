@@ -35,7 +35,6 @@ class AgentSpec implements Serializable {
             this.steps.node(label, exec)
         } else {
             this.steps.node(exec)
-            }
         }
     }
 }
