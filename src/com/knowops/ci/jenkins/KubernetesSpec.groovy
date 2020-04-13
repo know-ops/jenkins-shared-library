@@ -20,7 +20,7 @@ class KubernetesSpec implements Serializable {
             this.steps.podTemplate(label: label, exec)
         } else {
             this.steps.podTemplate(exec)
-            }
         }
     }
+
 }
