@@ -16,7 +16,7 @@ class StagesSpec implements Serializable {
 
     void stage(String label, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
         this.steps.echo "stage: ${label}: stages: ${this.stages.keySet()}"
-        this.stages[label] = new StageSpec()
+        this.stages[label] = new StageSpec(this.steps)
 
         stg.resolveStrategy = Closure.DELEGATE_FIRST
         stg.delegate = this.stages[label]
