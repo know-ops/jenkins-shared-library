@@ -17,9 +17,13 @@ class KubernetesSpec implements Serializable {
 
     void call(Closure<?> exec) {
         if (label) {
-            this.steps.podTemplate(label: label, exec)
+            this.steps.podTemplate(label: label) {
+                this.steps.node(label, exec)
+            }
         } else {
-            this.steps.podTemplate(exec)
+            this.steps.podTemplate {
+                this.steps.node(exec)
+            }
         }
     }
 
