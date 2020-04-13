@@ -4,7 +4,7 @@ import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.ProjectSpec
 
-def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure<?> overrides = null) {
+def call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> overrides = null) {
     workflow {
         project overrides
 
