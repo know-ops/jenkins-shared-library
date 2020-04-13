@@ -14,13 +14,13 @@ class StagesSpec implements Serializable {
         this.steps = s
     }
 
-    void stage(String label, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stage) {
+    void stage(String label, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
         println "stage: ${label}"
         this.stages[label] = new StageSpec()
 
-        stage.resolveStrategy = Closure.DELEGATE_FIRST
-        stage.delegate = this.stages[label]
-        stage()
+        stg.resolveStrategy = Closure.DELEGATE_FIRST
+        stg.delegate = this.stages[label]
+        stg()
     }
 
     void call() {
