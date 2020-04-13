@@ -26,7 +26,7 @@ class StagesSpec implements Serializable {
     void call() {
         try {
             this.stages.each { label, stg ->
-                stage(label, stg.&call)
+                this.steps.stage(label, stg.&call)
             }
         } catch (e) {
             if (!this.post) {
