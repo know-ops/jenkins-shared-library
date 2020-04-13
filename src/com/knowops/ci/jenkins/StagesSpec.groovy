@@ -8,7 +8,7 @@ class StagesSpec implements Serializable {
     private final Object post = null
 
     private final Object steps
-    private final Map<StageSpec> stages = [:]
+    private final Map<String,StageSpec> stages = [:]
 
     StagesSpec(Object s) {
         this.steps = s
