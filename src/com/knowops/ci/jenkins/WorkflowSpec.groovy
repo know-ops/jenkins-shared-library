@@ -39,15 +39,15 @@ class WorkflowSpec implements Serializable {
         }
     }
 
-    void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stages) {
+    void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
         // TO-DO: Throw exception if stages alredy set
         // TO-DO: Throw exception if parallel or matrix already set
 
         this.stages = new StagesSpec(this.steps)
 
-        stages.resolveStrategy = Closure.DELEGATE_FIRST
-        stages.delegate = this.stages
-        stages()
+        stgs.resolveStrategy = Closure.DELEGATE_FIRST
+        stgs.delegate = this.stages
+        stgs()
     }
 
     void call() {
@@ -56,7 +56,7 @@ class WorkflowSpec implements Serializable {
         if (this.stages) {
             try {
                 if (this.agent) {
-                    this.agent(this.&stages)
+                    this.agent(this.stagesClosure())
                 } else {
                     this.stages()
                 }
@@ -72,4 +72,8 @@ class WorkflowSpec implements Serializable {
         }
     }
 
+    @NonCPS
+    private Closure<?> stagesClosure() {
+        return this.&stages
+    }
 }
