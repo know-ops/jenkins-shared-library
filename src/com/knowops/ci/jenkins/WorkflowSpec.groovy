@@ -7,6 +7,8 @@ class WorkflowSpec implements Serializable {
 
     private ProjectSpec project
     private AgentSpec agent
+    private StagesSpec stages
+    private Object post
 
     private final Object steps
 
@@ -34,6 +36,39 @@ class WorkflowSpec implements Serializable {
             a.resolveStrategy = Closure.DELEGATE_FIRST
             a.delegate = this.agent
             a()
+        }
+    }
+
+    void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stages) {
+        // TO-DO: Throw exception if stages alredy set
+        // TO-DO: Throw exception if parallel or matrix already set
+
+        StagesSpec this.stages = new StagesSpec(this.steps)
+
+        stages.resolveStrategy = Closure.DELEGATE_FIRST
+        stages.delegate = this.stages
+        stages()
+    }
+
+    void call() {
+        // TO-DO: Throw exception if nothing to do
+
+        if (this.stages) {
+            try {
+                if (this.agent) {
+                    this.agent(this.stages)
+                } else {
+                    this.stages()
+                }
+            } catch (e) {
+                if (!this.post) {
+                    throw e
+                }
+            } finally {
+                if (this.post) {
+                    this.post()
+                }
+            }
         }
     }
 

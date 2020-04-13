@@ -14,28 +14,19 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
             }
         }
 
-//         stages {
-//             stage('display environment') {
-//                 checkout scm
+        stages {
+            stage('project') {
+                echo """
+Name: ${project.name}
+Repository: ${project.repository}
+Language: ${project.language}
+Build Tool: ${project.buildTool}
+                """
+            }
 
-//                 sh "printenv | sort"
-
-//                 Map<Closure> tasks = [
-//                     'project': {
-//                         echo """
-// Name: ${project.name}
-// Repository: ${project.repository}
-// Language: ${project.language}
-// Build Tool: ${project.buildTool}
-//                         """
-//                     },
-//                     'environment': {
-//                         sh "printenv | sort"
-//                     }
-//                 ]
-
-//                 parallel(tasks)
-//             }
-//         }
+            stage('environment') {
+                sh 'printenv | sort'
+            }
+        }
     }
 }

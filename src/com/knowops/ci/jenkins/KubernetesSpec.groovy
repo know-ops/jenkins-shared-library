@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins
 
-class KubernetesSpec {
+class KubernetesSpec implements Serializable {
 
     private String label
 
@@ -15,4 +15,12 @@ class KubernetesSpec {
         this.label = l
     }
 
+    void call(Closure<?> exec) {
+        if (label) {
+            this.steps.podTemplate(label: label, exec)
+        } else {
+            this.steps.podTemplate(exec)
+            }
+        }
+    }
 }

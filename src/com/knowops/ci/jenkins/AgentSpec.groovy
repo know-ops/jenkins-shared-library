@@ -3,7 +3,7 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
-class AgentSpec {
+class AgentSpec implements Serializable {
 
     private String label
     private KubernetesSpec kubernetes
@@ -28,4 +28,14 @@ class AgentSpec {
         }
     }
 
+    void call(Closure<?> exec) {
+        if (kubernetes) {
+            this.kubernetes(exec)
+        } else if (label) {
+            this.steps.node(label, exec)
+        } else {
+            this.steps.node(exec)
+            }
+        }
+    }
 }
