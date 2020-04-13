@@ -56,7 +56,7 @@ class WorkflowSpec implements Serializable {
         if (this.stages) {
             try {
                 if (this.agent) {
-                    this.agent(this.stages)
+                    this.agent(this.stages.call)
                 } else {
                     this.stages()
                 }
