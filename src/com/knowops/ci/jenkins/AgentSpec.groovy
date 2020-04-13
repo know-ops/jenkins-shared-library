@@ -22,7 +22,7 @@ class AgentSpec implements Serializable {
         this.kubernetes = new KubernetesSpec(this.steps)
 
         if (k8s) {
-            k8s.resoloveStrategy = Closure.DELEGATE_FIRST
+            k8s.resolveStrategy = Closure.DELEGATE_FIRST
             k8s.delegate = this.kubernetes
             k8s()
         }
