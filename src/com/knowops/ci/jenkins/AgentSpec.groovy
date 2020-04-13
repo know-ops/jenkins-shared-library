@@ -29,12 +29,13 @@ class AgentSpec implements Serializable {
     }
 
     void call(Closure<?> exec) {
-        if (kubernetes) {
+        if (this.kubernetes) {
             this.kubernetes(exec)
-        } else if (label) {
+        } else if (this.label) {
             this.steps.node(label, exec)
         } else {
             this.steps.node(exec)
         }
     }
+
 }
