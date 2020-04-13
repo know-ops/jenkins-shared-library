@@ -26,14 +26,14 @@ class StageSpec {
     }
 
     void steps(Closure<?> s) {
-        s.resolveStrategy = Closure.DELEGATE_FIRST
-        s.delegate = this.steps
-
         this.stepsClosure = s
     }
 
     void call() {
         try {
+            this.stepsClosure.resolveStrategy = Closure.DELEGATE_FIRST
+            this.stepsClosure.delegate = this.steps
+
             if (this.agent) {
                 this.agent(this.stepsClosure)
             } else {
