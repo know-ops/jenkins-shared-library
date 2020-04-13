@@ -6,6 +6,7 @@ import groovy.lang.DelegatesTo
 class WorkflowSpec implements Serializable {
 
     private ProjectSpec project
+    private AgentSpec agent
 
     private final Object steps
 
@@ -13,7 +14,7 @@ class WorkflowSpec implements Serializable {
         this.steps = s
     }
 
-    void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj) {
+    void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
         this.project = new ProjectSpec(this.steps)
 
         if (pj) {
@@ -25,4 +26,15 @@ class WorkflowSpec implements Serializable {
         // HACK: to make sure project language detection happens in it's own pod
         this.project.language
     }
+
+    void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=AgentSpec) Closure<?> a = null) {
+        this.agent = new AgentSpec(this.steps)
+
+        if (a) {
+            a.resolveStrategy = Closure.DELEGATE_FIRST
+            a.delegate = this.agent
+            a()
+        }
+    }
+
 }

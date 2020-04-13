@@ -1,6 +1,5 @@
 #!/usr/bin/env grroovy
 
-import groovy.lang.Closure
 import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.WorkflowSpec
