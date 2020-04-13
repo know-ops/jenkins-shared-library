@@ -37,5 +37,5 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=ProjectSpec) Closure
 //                 parallel(tasks)
 //             }
 //         }
-//     }
+    }
 }
