@@ -3,7 +3,7 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
-class StagesSpec implements Serialiable {
+class StagesSpec implements Serializable {
 
     private final Object post = null
 
