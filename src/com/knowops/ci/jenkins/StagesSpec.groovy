@@ -36,7 +36,7 @@ class StagesSpec implements Serializable {
     void call() {
         try {
             if (this.agent) {
-                this.agent(this.doStages())
+                this.agent(this.doStages)
             } else {
                 this.doStages()()
             }
