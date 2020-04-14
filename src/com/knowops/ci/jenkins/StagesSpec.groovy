@@ -5,6 +5,7 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec implements Serializable {
 
+    private AgentSpec agent
     private final Object post = null
 
     private final Object steps
@@ -12,6 +13,16 @@ class StagesSpec implements Serializable {
 
     StagesSpec(Object s) {
         this.steps = s
+    }
+
+    void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=AgentSpec) Closure<?> a) {
+        this.agent = new AgentSpec(this.steps)
+
+        if (a) {
+            a.resolveStrategy = Closure.DELEGATE_FIRST
+            a.delegate = this.agent
+            a()
+        }
     }
 
     void stage(String label, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
@@ -25,8 +36,16 @@ class StagesSpec implements Serializable {
 
     void call() {
         try {
-            this.stages.each { label, stg ->
-                this.steps.stage(label, stg.&call)
+            if (this.agent) {
+                this.agent {
+                    this.stages.each { label, stg ->
+                        this.steps.stage(label, stg.&call)
+                    }
+                }
+            } else {
+                this.stages.each { label, stg ->
+                    this.steps.stage(label, stg.&call)
+                }
             }
         } catch (e) {
             if (!this.post) {
