@@ -51,6 +51,7 @@ class StagesSpec implements Serializable {
         }
     }
 
+    @NonCPS
     private Closure<?> doStages() {
         return {
             this.stages.each { label, stg ->
