@@ -40,9 +40,6 @@ class WorkflowSpec implements Serializable {
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        // TO-DO: Throw exception if stages alredy set
-        // TO-DO: Throw exception if parallel or matrix already set
-
         this.stages = new StagesSpec(this.steps)
 
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
@@ -58,7 +55,7 @@ class WorkflowSpec implements Serializable {
                 if (this.agent) {
                     this.agent.call(this.stagesClosure())
                 } else {
-                    this.stages()
+                    this.stages.call()
                 }
             } catch (e) {
                 if (!this.post) {
