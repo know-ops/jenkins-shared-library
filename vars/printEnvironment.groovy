@@ -8,14 +8,14 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closur
     workflow {
         project overrides
 
-        agent {
-            kubernetes {
-                label 'k8s-agent'
-            }
-        }
-
         stages {
-            stage('project') {
+            agent {
+                kubernetes {
+                    label 'k8s-agent'
+                }
+            }
+
+            stage('Project') {
                 steps {
                     echo """
 Name: ${project.name}
@@ -26,7 +26,7 @@ Build Tool: ${project.buildTool}
                 }
             }
 
-            stage('environment') {
+            stage('Environment') {
                 steps {
                     sh 'printenv | sort'
                 }
