@@ -35,16 +35,10 @@ class StagesSpec implements Serializable {
 
     void call() {
         try {
-            Closure<?> stagesClosure = {
-                this.stages.each { label, stg ->
-                    this.steps.stage(label, stg.&call)
-                }
-            }
-
             if (this.agent) {
-                this.agent(stagesClosure)
+                this.agent(this.doStages())
             } else {
-                stagesClosure()
+                this.doStages()()
             }
         } catch (e) {
             if (!this.post) {
@@ -53,6 +47,14 @@ class StagesSpec implements Serializable {
         } finally {
             if (this.post) {
                 this.post()
+            }
+        }
+    }
+
+    private Closure<?> doStages() {
+        return {
+            this.stages.each { label, stg ->
+                this.steps.stage(label, stg.&call)
             }
         }
     }
