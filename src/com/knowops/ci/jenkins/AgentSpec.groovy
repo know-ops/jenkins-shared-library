@@ -107,7 +107,6 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.script.echo 'exec: starting: kubernetes'
             this.kubernetes.call()
-            this.script.echo 'exec: starting: kubernetes'
         } else if (this.node) {
             this.script.echo 'exec: starting: node'
             if (this.label) {
