@@ -33,7 +33,7 @@ class WorkflowSpec extends BaseSpec {
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.stages('Stages', stgs)
+        this.stages('', stgs)
     }
 
 }
