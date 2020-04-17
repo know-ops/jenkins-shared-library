@@ -79,13 +79,17 @@ class AgentSpec implements Serializable {
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
+            this.script.echo 'cfg: agent: stages: kubernetes'
             this.kubernetes.stages(name, stgs)
+            this.script.echo 'cfg: agent: stages: kubernetes'
         } else {
+            this.script.echo 'cfg: agent: stages: default'
             this.aStages[name] = new StagesSpec(this.script)
             stgs.delegate = this.aStages[name]
             stgs()
 
             this.exec[name] = this.aStage[name].&call
+            this.script.echo 'cfg: agent: stages: default'
         }
         this.script.echo 'cfg: agent: stages'
     }
