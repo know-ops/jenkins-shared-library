@@ -79,7 +79,7 @@ class AgentSpec implements Serializable {
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
-            this.kubrnetes.stages(name, stgs)
+            this.kubernetes.stages(name, stgs)
         } else {
             this.aStages[name] = new StagesSpec(this.script)
             stgs.delegate = this.aStages[name]
