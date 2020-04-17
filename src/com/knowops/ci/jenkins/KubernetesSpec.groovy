@@ -11,12 +11,12 @@ class KubernetesSpec extends AgentSpec {
     @Override
     void call() {
         if (label) {
-            this.steps.podTemplate(label: label) {
-                this.steps.node(label, this.exec)
+            this.script.podTemplate(label: label) {
+                this.script.node(label, this.exec)
             }
         } else {
-            this.steps.podTemplate {
-                this.steps.node(this.exec)
+            this.script.podTemplate {
+                this.script.node(this.exec)
             }
         }
     }

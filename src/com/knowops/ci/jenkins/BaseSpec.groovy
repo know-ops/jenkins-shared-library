@@ -3,12 +3,12 @@ package com.knowops.ci.jenkins
 
 class BaseSpec implements Serializable {
 
-    final Object steps
+    final Object script
     final AgentSpec ag
 
     BaseSpec(Object s) {
-        this.steps = s
-        this.ag = new AgentSpec(this.steps)
+        this.script = s
+        this.ag = new AgentSpec(this.script)
     }
 
     void agent(String a) {

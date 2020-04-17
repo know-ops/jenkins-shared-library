@@ -15,13 +15,13 @@ class AgentSpec implements Serializable {
 
     KubernetesSpec kubernetes
 
-    final Object steps
+    final Object script
     final Map<String,StagesSpec> aStages = [:]
     final Map<String,StageSpec> aStage = [:]
     final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
-        this.steps = s
+        this.script = s
     }
 
     void label(String l) {
@@ -30,7 +30,7 @@ class AgentSpec implements Serializable {
     }
 
     void kubernetes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=KubernetesSpec) Closure<?> k8s) {
-        this.kubernetes = new KubernetesSpec(this.steps)
+        this.kubernetes = new KubernetesSpec(this.script)
 
         if (k8s) {
             k8s.resolveStrategy = Closure.DELEGATE_FIRST
@@ -44,7 +44,7 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubernetes.steps(s)
         } else {
-            s.delegate = this.steps
+            s.delegate = this.script
 
             this.exec[""] = s
         }
@@ -56,7 +56,7 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubernetes.stage(name, stg)
         } else {
-            this.aStage[name] = new StageSpec(this.steps)
+            this.aStage[name] = new StageSpec(this.script)
             stg.delegate = this.aStage[name]
             stg()
 
@@ -70,7 +70,7 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubrnetes.stages(name, stgs)
         } else {
-            this.aStages[name] = new StagesSpec(this.steps)
+            this.aStages[name] = new StagesSpec(this.script)
             stgs.delegate = this.aStages[name]
             stgs()
 
@@ -87,10 +87,10 @@ class AgentSpec implements Serializable {
             this.kubernetes()
         } else if (this.node) {
             if (this.label) {
-                this.steps.node(this.label) {
+                this.script.node(this.label) {
                     this.exec.each { name, task ->
                         if (name) {
-                            this.steps.stage(name) {
+                            this.script.stage(name) {
                                 task()
                             }
                         } else {
@@ -99,10 +99,10 @@ class AgentSpec implements Serializable {
                     }
                 }
             } else {
-                this.steps.node {
+                this.script.node {
                     this.exec.each { name, task ->
                         if (name) {
-                            this.steps.stage(name) {
+                            this.script.stage(name) {
                                 task()
                             }
                         } else {
@@ -114,7 +114,7 @@ class AgentSpec implements Serializable {
         } else {
             this.exec.each { name, task ->
                 if (name) {
-                    this.steps.stage(name) {
+                    this.script.stage(name) {
                         task()
                     }
                 } else {

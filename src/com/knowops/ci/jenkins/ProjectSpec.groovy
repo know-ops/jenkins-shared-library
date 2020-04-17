@@ -18,7 +18,7 @@ class ProjectSpec implements Serializable {
     private final Object steps
 
     ProjectSpec(Object s) {
-        this.steps = s
+        this.script = s
     }
 
     void setName(String n) {
@@ -58,7 +58,7 @@ class ProjectSpec implements Serializable {
             return this.repository
         }
 
-        return this.steps.scm.userRemoteConfigs[0].url
+        return this.script.scm.userRemoteConfigs[0].url
     }
 
     /**
@@ -71,10 +71,10 @@ class ProjectSpec implements Serializable {
         }
 
         // TO-DO: split between different environments, i.e. bare metal, kubernetes, docker, etc.
-        this.steps.podTemplate(label: 'k8s-github-linguist-agent') {
-            this.steps.node('k8s-github-linguist-agent') {
-                this.steps.checkout this.steps.scm
-                this.steps.container('linguist') {
+        this.script.podTemplate(label: 'k8s-github-linguist-agent') {
+            this.script.node('k8s-github-linguist-agent') {
+                this.script.checkout this.script.scm
+                this.script.container('linguist') {
                     this.language = this.doLanguage()
                 }
             }
@@ -99,7 +99,7 @@ class ProjectSpec implements Serializable {
 
     ArrayList<String> doLanguage() {
         return this.parseJson(
-            this.steps.sh(script: 'github-linguist --json', returnStdout: true)
+            this.script.sh(script: 'github-linguist --json', returnStdout: true)
         ).keySet() as ArrayList
     }
 
