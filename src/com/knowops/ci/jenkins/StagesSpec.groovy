@@ -5,7 +5,7 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec extends BaseSpec {
 
-    private Boolean parallel = false
+    private Boolean parallel
 
     StagesSpec(Object s) {
         super(s)
@@ -15,6 +15,11 @@ class StagesSpec extends BaseSpec {
         this.script.echo "cfg: stages: stage: ${name}"
         this.script.echo "cfg: stages: parallel: ${this.parallel}"
         this.ag.stage(name, stg)
+    }
+
+    Boolean getParallel() {
+        this.script.echo 'cfg: stages: parallel'
+        return this.parallel
     }
 
     void setParallel(Boolean p) {
