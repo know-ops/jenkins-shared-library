@@ -1,28 +1,22 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins
 
-class KubernetesSpec implements Serializable {
-
-    private String label
-
-    private final Object steps
+class KubernetesSpec extends AgentSpec {
 
     KubernetesSpec(Object s) {
-        this.steps = s
+        super(s)
+        this.node = true
     }
 
-    void label(String l) {
-        this.label = l
-    }
-
-    void call(Closure<?> exec) {
+    @Override
+    void call() {
         if (label) {
             this.steps.podTemplate(label: label) {
-                this.steps.node(label, exec)
+                this.steps.node(label, this.exec)
             }
         } else {
             this.steps.podTemplate {
-                this.steps.node(exec)
+                this.steps.node(this.exec)
             }
         }
     }

@@ -3,21 +3,16 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
-class WorkflowSpec implements Serializable {
+class WorkflowSpec extends BaseSpec {
 
-    private ProjectSpec project
-    private AgentSpec agent
-    private StagesSpec stages
-    private Object post
-
-    private final Object steps
+    private final ProjectSpec project
 
     WorkflowSpec(Object s) {
-        this.steps = s
+        super(s)
+        this.project = new ProjectSpec(this.steps)
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
-        this.project = new ProjectSpec(this.steps)
 
         if (pj) {
             pj.resolveStrategy = Closure.DELEGATE_FIRST
@@ -29,48 +24,12 @@ class WorkflowSpec implements Serializable {
         this.project.language
     }
 
-    void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=AgentSpec) Closure<?> a = null) {
-        this.agent = new AgentSpec(this.steps)
-
-        if (a) {
-            a.resolveStrategy = Closure.DELEGATE_FIRST
-            a.delegate = this.agent
-            a()
-        }
+    void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
+        this.agent.stages(name, stgs)
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.stages = new StagesSpec(this.steps)
-
-        stgs.resolveStrategy = Closure.DELEGATE_FIRST
-        stgs.delegate = this.stages
-        stgs()
+        this.stages('Stages', stgs)
     }
 
-    void call() {
-        // TO-DO: Throw exception if nothing to do
-
-        if (this.stages) {
-            try {
-                if (this.agent) {
-                    this.agent.call(this.stagesClosure())
-                } else {
-                    this.stages.call()
-                }
-            } catch (e) {
-                if (!this.post) {
-                    throw e
-                }
-            } finally {
-                if (this.post) {
-                    this.post()
-                }
-            }
-        }
-    }
-
-    @NonCPS
-    private Closure<?> stagesClosure() {
-        return this.stages.&call
-    }
 }
