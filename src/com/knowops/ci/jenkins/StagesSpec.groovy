@@ -12,6 +12,9 @@ class StagesSpec extends BaseSpec {
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
+        if (this.parallel) {
+            this.ag.parallel = true
+        }
         this.ag.stage(name, stg)
     }
 
