@@ -12,6 +12,8 @@ class StagesSpec extends BaseSpec {
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
+        this.script.echo "cfg: stages: stage: ${name}"
+        this.script.echo "cfg: stages: parallel ${this.parallel}"
         this.ag.stage(name, stg)
     }
 
