@@ -10,8 +10,10 @@ void call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=WorkflowSpec) Closu
 
     wf.resolveStrategy = Closure.DELEGATE_FIRST
     wf.delegate = workflow
+    echo 'init'
     wf()
 
+    echo 'exec'
     workflow()
 
 }
