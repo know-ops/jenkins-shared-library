@@ -99,7 +99,7 @@ class AgentSpec implements Serializable {
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.aStages('', stg)
+        this.stages('', stg)
     }
 
     void call() {
