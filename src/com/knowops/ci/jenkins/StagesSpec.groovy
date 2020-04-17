@@ -22,7 +22,7 @@ class StagesSpec extends BaseSpec {
         return this.parallel
     }
 
-    void setParallel(Boolean p) {
+    void setParallel(Boolean parallel) {
         this.script.echo 'cfg: stages: parallel'
         if (this.ag.kubernetes) {
             this.script.echo 'cfg: stages: parallel: kubernetes'
@@ -32,6 +32,7 @@ class StagesSpec extends BaseSpec {
             // this.ag.parallel = p
         }
 
-        this.parallel = p
+        this.parallel = parallel
     }
+
 }
