@@ -26,14 +26,14 @@ class AgentSpec implements Serializable {
     }
 
     void label(String l) {
-        this.script.echo "cfg: agent: ${l}"
+        this.script.echo "cfg: agent: ${label}"
         this.label = l
         this.node = true
-        this.script.echo "cfg: agent: ${l}"
+        this.script.echo "cfg: agent: ${label}"
     }
 
     void kubernetes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=KubernetesSpec) Closure<?> k8s) {
-        this.script.echo "cfg: agent: kubernetes: ${l}"
+        this.script.echo "cfg: agent: kubernetes: ${label}"
         this.kubernetes = new KubernetesSpec(this.script)
 
         if (k8s) {
@@ -41,7 +41,7 @@ class AgentSpec implements Serializable {
             k8s.delegate = this.kubernetes
             k8s()
         }
-        this.script.echo "cfg: agent: kubernetes: ${l}"
+        this.script.echo "cfg: agent: kubernetes: ${label}"
     }
 
     void steps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
@@ -59,7 +59,7 @@ class AgentSpec implements Serializable {
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
-        this.script.echo "cfg: agent: stage: ${this.class}"
+        this.script.echo "cfg: agent: stage: ${class}"
         stg.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
