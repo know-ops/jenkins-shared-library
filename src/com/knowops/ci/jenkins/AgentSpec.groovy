@@ -16,9 +16,9 @@ class AgentSpec implements Serializable {
     private Boolean node = false
 
     private final Object steps
-    private final Map<String,StagesSpec> stages
-    private final Map<String,StageSpec> stage
-    private final Map<String,Closure> exec
+    private final Map<String,StagesSpec> stages = [:]
+    private final Map<String,StageSpec> stage = [:]
+    private final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
         this.steps = s
