@@ -9,7 +9,7 @@ class WorkflowSpec extends BaseSpec {
 
     WorkflowSpec(Object s) {
         super(s)
-        this.project = new ProjectSpec(this.steps)
+        this.project = new ProjectSpec(s)
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
