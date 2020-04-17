@@ -10,10 +10,7 @@ class StageSpec extends BaseSpec {
     }
 
     void steps(Closure<?> s) {
-        s.resolveStrategy = Closure.DELEGATE_FIRST
-        s.delegate = this.steps
-
-        this.stepsClosure = s
+        this.agent.steps(s)
     }
 
 }
