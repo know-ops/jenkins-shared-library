@@ -4,7 +4,7 @@ package com.knowops.ci.jenkins
 class BaseSpec implements Serializable {
 
     private final Object steps
-    private final AgentSpec agent
+    final AgentSpec agent
 
     BaseSpec(Object s) {
         this.steps = s
@@ -42,7 +42,4 @@ class BaseSpec implements Serializable {
         this.agent()
     }
 
-    void getAgent() {
-        this.agent
-    }
 }
