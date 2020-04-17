@@ -70,7 +70,7 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubrnetes.stages(name, stgs)
         } else {
-            this.stages[name] = new StagesSpec(this.steps))
+            this.stages[name] = new StagesSpec(this.steps)
             stgs.delegate = this.stages[name]
             stgs()
 
