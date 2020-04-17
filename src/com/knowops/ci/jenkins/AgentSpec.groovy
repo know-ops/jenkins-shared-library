@@ -46,7 +46,7 @@ class AgentSpec implements Serializable {
         } else {
             s.delegate = this.script
 
-            this.exec[""] = s
+            this.exec[''] = s
         }
     }
 
