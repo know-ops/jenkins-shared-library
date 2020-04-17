@@ -5,7 +5,7 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec extends BaseSpec {
 
-    parallel = false
+    Boolean parallel = false
 
     StagesSpec(Object s) {
         super(s)
