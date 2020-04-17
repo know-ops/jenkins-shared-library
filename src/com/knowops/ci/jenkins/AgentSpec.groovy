@@ -114,7 +114,7 @@ class AgentSpec implements Serializable {
                 this.script.echo "exec: starting: node: ${this.label}"
                 this.script.node(this.label) {
                     this.exec.each { name, task ->
-                        if (name != '' ) {
+                        if (name != '') {
                             this.script.stage(name) {
                                 task()
                             }
@@ -127,7 +127,7 @@ class AgentSpec implements Serializable {
                 this.script.node {
                     this.script.echo 'exec: starting: node'
                     this.exec.each { name, task ->
-                        if (name) {
+                        if (name = '') {
                             this.script.stage(name) {
                                 task()
                             }
@@ -139,7 +139,7 @@ class AgentSpec implements Serializable {
             }
         } else {
             this.exec.each { name, task ->
-                if (name) {
+                if (name = '') {
                     this.script.stage(name) {
                         task()
                     }
