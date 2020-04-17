@@ -8,7 +8,7 @@ void call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closu
     workflow {
         project overrides
 
-        stages('Stages') {
+        stages {
             parallel true
 
             stage('Project') {
