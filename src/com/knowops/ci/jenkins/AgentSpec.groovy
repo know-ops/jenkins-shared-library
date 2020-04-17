@@ -105,9 +105,13 @@ class AgentSpec implements Serializable {
     void call() {
         this.script.echo 'exec: starting'
         if (this.kubernetes) {
+            this.script.echo 'exec: starting: kubernetes'
             this.kubernetes()
+            this.script.echo 'exec: starting: kubernetes'
         } else if (this.node) {
+            this.script.echo 'exec: starting: node'
             if (this.label) {
+                this.script.echo "exec: starting: node: ${this.label}"
                 this.script.node(this.label) {
                     this.exec.each { name, task ->
                         if (name != '~s~t~e~p~s~' ) {
@@ -121,6 +125,7 @@ class AgentSpec implements Serializable {
                 }
             } else {
                 this.script.node {
+                    this.script.echo 'exec: starting: node'
                     this.exec.each { name, task ->
                         if (name) {
                             this.script.stage(name) {
