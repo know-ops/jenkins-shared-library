@@ -13,7 +13,7 @@ class StagesSpec extends BaseSpec {
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
         this.script.echo "cfg: stages: stage: ${name}"
-        this.script.echo "cfg: stages: parallel ${this.parallel}"
+        this.script.echo "cfg: stages: parallel: ${this.parallel}"
         this.ag.stage(name, stg)
     }
 
@@ -21,10 +21,10 @@ class StagesSpec extends BaseSpec {
         this.script.echo 'cfg: stages: parallel'
         if (this.ag.kubernetes) {
             this.script.echo 'cfg: stages: parallel: kubernetes'
-            this.ag.kubernetes.parallel = p
+            // this.ag.kubernetes.parallel = p
         } else {
             this.script.echo 'cfg: stages: parallel: default'
-            this.ag.parallel = p
+            // this.ag.parallel = p
         }
 
         this.parallel = p
