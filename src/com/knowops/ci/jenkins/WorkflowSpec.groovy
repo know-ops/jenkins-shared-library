@@ -9,7 +9,7 @@ class WorkflowSpec extends BaseSpec {
 
     WorkflowSpec(Object s) {
         super(s)
-        this.project = new ProjectSpec(s)
+        this.roject = new ProjectSpec(s)
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
@@ -25,7 +25,7 @@ class WorkflowSpec extends BaseSpec {
     }
 
     void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.agent.stages(name, stgs)
+        this.ag.stages(name, stgs)
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {

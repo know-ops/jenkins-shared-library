@@ -10,7 +10,7 @@ class StageSpec extends BaseSpec {
     }
 
     void steps(Closure<?> s) {
-        this.agent.steps(s)
+        thi.ag.steps(s)
     }
 
 }

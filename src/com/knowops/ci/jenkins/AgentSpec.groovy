@@ -16,8 +16,8 @@ class AgentSpec implements Serializable {
     KubernetesSpec kubernetes
 
     final Object steps
-    final Map<String,StagesSpec> stages = [:]
-    final Map<String,StageSpec> stage = [:]
+    final Map<String,StagesSpec> aStages = [:]
+    final Map<String,StageSpec> aStage = [:]
     final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
@@ -56,11 +56,11 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubernetes.stage(name, stg)
         } else {
-            this.stage[name] = new StageSpec(this.steps)
-            stg.delegate = this.stage[name]
+            this.aStage[name] = new StageSpec(this.steps)
+            stg.delegate = this.aStage[name]
             stg()
 
-            this.exec[name] = this.stage[name].&call
+            this.exec[name] = this.aStage[name].&call
         }
     }
 
@@ -70,16 +70,16 @@ class AgentSpec implements Serializable {
         if (this.kubernetes) {
             this.kubrnetes.stages(name, stgs)
         } else {
-            this.stages[name] = new StagesSpec(this.steps)
-            stgs.delegate = this.stages[name]
+            this.aStages[name] = new StagesSpec(this.steps)
+            stgs.delegate = this.aStages[name]
             stgs()
 
-            this.exec[name] = this.stage[name].&call
+            this.exec[name] = this.aStage[name].&call
         }
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.stages("Stages", stg)
+        this.aStages("Stages", stg)
     }
 
     void call() {

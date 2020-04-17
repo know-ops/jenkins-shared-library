@@ -4,21 +4,21 @@ package com.knowops.ci.jenkins
 class BaseSpec implements Serializable {
 
     final Object steps
-    final AgentSpec agent
+    final AgentSpec ag
 
     BaseSpec(Object s) {
         this.steps = s
-        this.agent = new AgentSpec(this.steps)
+        this.ag = new AgentSpec(this.steps)
     }
 
     void agent(String a) {
         switch (s) {
             case 'any':
-                this.agent.node = true
+                this.ag.node = true
 
                 break
             case 'none':
-                this.agent.node = false
+                this.ag.node = false
 
                 break
             default:
@@ -31,15 +31,15 @@ class BaseSpec implements Serializable {
     void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=AgentSpec) Closure<?> a) {
         if (a) {
             a.resolveStrategy = Closure.DELEGATE_FIRST
-            a.delegate = this.agent
+            a.delegate = this.ag
             a()
         } else {
-            this.agent.node = true
+            this.ag.node = true
         }
     }
 
     void call() {
-        this.agent()
+        this.ag()
     }
 
 }

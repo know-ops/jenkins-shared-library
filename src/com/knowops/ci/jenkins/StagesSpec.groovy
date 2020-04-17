@@ -10,7 +10,7 @@ class StagesSpec extends BaseSpec {
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
-        this.agent.stage(name, stg)
+        this.ag.stage(name, stg)
     }
 
 }
