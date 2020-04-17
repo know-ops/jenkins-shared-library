@@ -15,7 +15,7 @@ class ProjectSpec implements Serializable {
     private String buildTool
 
     // This is the Jenkins steps object
-    private final Object steps
+    private final Object script
 
     ProjectSpec(Object s) {
         this.script = s
