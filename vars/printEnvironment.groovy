@@ -4,20 +4,20 @@ import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.ProjectSpec
 
-def call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> overrides = null) {
+void call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> overrides = null) {
     workflow {
         project overrides
 
         stages('Stages') {
-            agent {
-                kubernetes {
-                    label 'k8s-agent'
-                }
-            }
-
             parallel true
 
             stage('Project') {
+                agent {
+                    kubernetes {
+                        label 'k8s-agent'
+                    }
+                }
+
                 steps {
                     echo """
 Name: ${project.name}
@@ -29,6 +29,12 @@ Build Tool: ${project.buildTool}
             }
 
             stage('Environment') {
+                agent {
+                    kubernetes {
+                        label 'k8s-agent'
+                    }
+                }
+
                 steps {
                     sh 'printenv | sort'
                 }
