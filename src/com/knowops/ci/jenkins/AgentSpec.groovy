@@ -53,7 +53,7 @@ class AgentSpec implements Serializable {
         } else {
             s.delegate = this.script
 
-            this.exec['~s~t~e~p~s~'] = s
+            this.exec[''] = s
         }
         this.script.echo 'cfg: agent: steps'
     }
@@ -114,7 +114,7 @@ class AgentSpec implements Serializable {
                 this.script.echo "exec: starting: node: ${this.label}"
                 this.script.node(this.label) {
                     this.exec.each { name, task ->
-                        if (name != '~s~t~e~p~s~' ) {
+                        if (name != '' ) {
                             this.script.stage(name) {
                                 task()
                             }

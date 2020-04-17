@@ -17,7 +17,7 @@ class KubernetesSpec extends AgentSpec {
                 this.script.podTemplate(label: label) {
                     this.script.node(this.label) {
                         this.exec.each { name, task ->
-                            if (name != '~s~t~e~p~s~' ) {
+                            if (name != '' ) {
                                 this.script.stage(name) {
                                     task()
                                 }
