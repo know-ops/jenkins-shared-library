@@ -112,41 +112,28 @@ class AgentSpec implements Serializable {
             if (this.label) {
                 this.script.echo "exec: starting: node: ${this.label}"
                 this.script.node(this.label) {
-                    this.exec.each { name, task ->
-                        if (name != '') {
-                            this.script.stage(name) {
-                                task()
-                            }
-                        } else {
-                            task()
-                        }
-                    }
+                    this.doExec()
                 }
             } else {
+                this.script.echo 'exec: starting: node'
                 this.script.node {
-                    this.script.echo 'exec: starting: node'
-                    this.exec.each { name, task ->
-                        if (name != '') {
-                            this.script.stage(name) {
-                                task()
-                            }
-                        } else {
-                            task()
-                        }
-                    }
+                    this.doExec()
                 }
             }
         } else {
-            this.exec.each { name, task ->
-                if (name != '') {
-                    this.script.stage(name) {
-                        task()
-                    }
-                } else {
-                    task()
-                }
-            }
+            this.doExec()
         }
     }
 
+    void doExec() {
+        this.exec.each { name, task ->
+            if (name != '') {
+                this.script.stage(name) {
+                    task()
+                }
+            } else {
+                task()
+            }
+        }
+    }
 }

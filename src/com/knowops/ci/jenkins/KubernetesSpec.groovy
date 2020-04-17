@@ -16,15 +16,7 @@ class KubernetesSpec extends AgentSpec {
                 this.script.echo "exec: starting: node: ${this.label}"
                 this.script.podTemplate(label: label) {
                     this.script.node(this.label) {
-                        this.exec.each { name, task ->
-                            if (name != '') {
-                                this.script.stage(name) {
-                                    task()
-                                }
-                            } else {
-                                task()
-                            }
-                        }
+                        this.doExec()
                     }
                 }
             } else {
@@ -32,27 +24,13 @@ class KubernetesSpec extends AgentSpec {
                     this.script.node {
                         this.script.echo 'exec: starting: node'
                         this.exec.each { name, task ->
-                            if (name != '') {
-                                this.script.stage(name) {
-                                    task()
-                                }
-                            } else {
-                                task()
-                            }
+                            this.doExec()
                         }
                     }
                 }
             }
         } else {
-            this.exec.each { name, task ->
-                if (name != '') {
-                    this.script.stage(name) {
-                        task()
-                    }
-                } else {
-                    task()
-                }
-            }
+            this.doExec()
         }
     }
 }
