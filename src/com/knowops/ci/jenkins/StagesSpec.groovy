@@ -5,8 +5,6 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec extends BaseSpec {
 
-    private Boolean parallel
-
     StagesSpec(Object s) {
         super(s)
     }
@@ -17,22 +15,15 @@ class StagesSpec extends BaseSpec {
         this.ag.stage(name, stg)
     }
 
-    Boolean getParallel() {
-        this.script.echo 'cfg: stages: parallel'
-        return this.parallel
-    }
-
-    void setParallel(Boolean parallel) {
+    void parallel(Boolean p) {
         this.script.echo 'cfg: stages: parallel'
         if (this.ag.kubernetes) {
             this.script.echo 'cfg: stages: parallel: kubernetes'
-            // this.ag.kubernetes.parallel = p
+            this.ag.kubernetes.parallel = p
         } else {
             this.script.echo 'cfg: stages: parallel: default'
-            // this.ag.parallel = p
+            this.ag.parallel = p
         }
-
-        this.parallel = parallel
     }
 
 }

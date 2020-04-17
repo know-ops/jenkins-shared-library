@@ -9,7 +9,7 @@ def call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closur
         project overrides
 
         stages('Stages') {
-            parallel = true
+            parallel true
 
             agent {
                 kubernetes {
