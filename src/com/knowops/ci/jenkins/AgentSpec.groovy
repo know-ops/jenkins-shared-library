@@ -92,7 +92,7 @@ class AgentSpec implements Serializable {
             stgs.delegate = this.aStages[name]
             stgs()
 
-            this.exec[name] = this.aStage[name].&call
+            this.exec[name] = this.aStages[name].&call
             this.script.echo 'cfg: agent: stages: default'
         }
         this.script.echo 'cfg: agent: stages'
