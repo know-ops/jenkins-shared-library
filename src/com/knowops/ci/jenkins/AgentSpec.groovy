@@ -10,15 +10,15 @@ import groovy.lang.DelegatesTo
 
 class AgentSpec implements Serializable {
 
-    private String label
-    private KubernetesSpec kubernetes
-
+    String label
     Boolean node = false
 
-    private final Object steps
-    private final Map<String,StagesSpec> stages = [:]
-    private final Map<String,StageSpec> stage = [:]
-    private final Map<String,Closure> exec = [:]
+    private KubernetesSpec kubernetes
+
+    final Object steps
+    final Map<String,StagesSpec> stages = [:]
+    final Map<String,StageSpec> stage = [:]
+    final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
         this.steps = s
