@@ -8,8 +8,8 @@ class WorkflowSpec extends BaseSpec {
     private final ProjectSpec project
 
     WorkflowSpec(Object s) {
-        s.echo 'init: workflow'
         super(s)
+        s.echo 'init: workflow'
         this.project = new ProjectSpec(s)
     }
 
