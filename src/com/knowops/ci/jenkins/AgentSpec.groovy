@@ -33,7 +33,7 @@ class AgentSpec implements Serializable {
     }
 
     void kubernetes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=KubernetesSpec) Closure<?> k8s) {
-        this.script.echo "cfg: agent: kubernetes: ${label}"
+        this.script.echo "cfg: agent: kubernetes: ${this.label}"
         this.kubernetes = new KubernetesSpec(this.script)
 
         if (k8s) {
