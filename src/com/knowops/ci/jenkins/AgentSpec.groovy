@@ -12,6 +12,7 @@ class AgentSpec implements Serializable {
 
     String label
     Boolean node = false
+    Boolean parallel = false
 
     KubernetesSpec kubernetes
 
@@ -92,6 +93,8 @@ class AgentSpec implements Serializable {
             stgs.delegate = this.aStages[name]
             stgs()
 
+            this.parallel = this.aStages[name].parallel
+
             this.exec[name] = this.aStages[name].&call
             this.script.echo 'cfg: agent: stages: default'
         }
@@ -126,13 +129,17 @@ class AgentSpec implements Serializable {
     }
 
     void doExec() {
-        this.exec.each { name, task ->
-            if (name != '') {
-                this.script.stage(name) {
+        if (this.parallel) {
+            this.steps.parallel(this.exec)
+        } else {
+            this.exec.each { name, task ->
+                if (name != '') {
+                    this.script.stage(name) {
+                        task()
+                    }
+                } else {
                     task()
                 }
-            } else {
-                task()
             }
         }
     }
