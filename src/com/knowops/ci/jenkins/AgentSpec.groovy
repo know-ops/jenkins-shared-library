@@ -130,7 +130,7 @@ class AgentSpec implements Serializable {
 
     void doExec() {
         if (this.parallel) {
-            this.steps.parallel(this.exec)
+            this.script.parallel(this.exec)
         } else {
             this.exec.each { name, task ->
                 if (name != '') {
