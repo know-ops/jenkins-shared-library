@@ -40,7 +40,7 @@ class AgentSpec implements Serializable {
     }
 
     void steps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
-        this.steps.echo 'init: steps'
+        this.script.echo 'cfg: steps'
         s.resolveStrategy = Closure.DELEGATE_FIRST
         
         if (this.kubernetes) {
@@ -50,11 +50,11 @@ class AgentSpec implements Serializable {
 
             this.exec['~s~t~e~p~s~'] = s
         }
-        this.steps.echo 'init: steps'
+        this.script.echo 'cfg: steps'
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
-        this.steps.echo 'init: stage'
+        this.script.echo 'cfg: stage'
         stg.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
@@ -66,11 +66,11 @@ class AgentSpec implements Serializable {
 
             this.exec[name] = this.aStage[name].&call
         }
-        this.steps.echo 'init: stage'
+        this.script.echo 'cfg: stage'
     }
 
     void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.steps.echo 'init: stages'
+        this.script.echo 'cfg: stages'
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
@@ -82,7 +82,7 @@ class AgentSpec implements Serializable {
 
             this.exec[name] = this.aStage[name].&call
         }
-        this.steps.echo 'init: stages'
+        this.script.echo 'cfg: stages'
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
@@ -90,7 +90,7 @@ class AgentSpec implements Serializable {
     }
 
     void call() {
-        this.steps.echo 'exec: starting'
+        this.script.echo 'exec: starting'
         if (this.kubernetes) {
             this.kubernetes()
         } else if (this.node) {
