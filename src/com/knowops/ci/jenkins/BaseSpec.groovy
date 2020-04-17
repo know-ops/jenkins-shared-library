@@ -42,4 +42,7 @@ class BaseSpec implements Serializable {
         this.agent()
     }
 
+    void getAgent() {
+        this.agent
+    }
 }
