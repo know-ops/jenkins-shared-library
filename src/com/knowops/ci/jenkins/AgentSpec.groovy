@@ -13,7 +13,7 @@ class AgentSpec implements Serializable {
     String label
     Boolean node = false
 
-    private KubernetesSpec kubernetes
+    KubernetesSpec kubernetes
 
     final Object steps
     final Map<String,StagesSpec> stages = [:]

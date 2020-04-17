@@ -3,7 +3,7 @@ package com.knowops.ci.jenkins
 
 class BaseSpec implements Serializable {
 
-    private final Object steps
+    final Object steps
     final AgentSpec agent
 
     BaseSpec(Object s) {
