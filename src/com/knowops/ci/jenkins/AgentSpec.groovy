@@ -21,15 +21,19 @@ class AgentSpec implements Serializable {
     final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
+        s.echo 'init: agent'
         this.script = s
     }
 
     void label(String l) {
+        this.script.echo "cfg: agent: ${l}"
         this.label = l
         this.node = true
+        this.script.echo "cfg: agent: ${l}"
     }
 
     void kubernetes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=KubernetesSpec) Closure<?> k8s) {
+        this.script.echo "cfg: agent: kubernetes: ${l}"
         this.kubernetes = new KubernetesSpec(this.script)
 
         if (k8s) {
@@ -37,10 +41,11 @@ class AgentSpec implements Serializable {
             k8s.delegate = this.kubernetes
             k8s()
         }
+        this.script.echo "cfg: agent: kubernetes: ${l}"
     }
 
     void steps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
-        this.script.echo 'cfg: steps'
+        this.script.echo 'cfg: agent: steps'
         s.resolveStrategy = Closure.DELEGATE_FIRST
         
         if (this.kubernetes) {
@@ -50,11 +55,11 @@ class AgentSpec implements Serializable {
 
             this.exec['~s~t~e~p~s~'] = s
         }
-        this.script.echo 'cfg: steps'
+        this.script.echo 'cfg: agent: steps'
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
-        this.script.echo 'cfg: stage'
+        this.script.echo "cfg: agent: stage: ${this.class}"
         stg.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
@@ -66,7 +71,7 @@ class AgentSpec implements Serializable {
 
             this.exec[name] = this.aStage[name].&call
         }
-        this.script.echo 'cfg: stage'
+        this.script.echo 'cfg: agent: stage'
     }
 
     void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
