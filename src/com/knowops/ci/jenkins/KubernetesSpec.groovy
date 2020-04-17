@@ -10,15 +10,45 @@ class KubernetesSpec extends AgentSpec {
 
     @Override
     void call() {
-        if (label) {
-            this.script.podTemplate(label: label) {
-                this.script.node(label, this.exec)
+        if (this.node) {
+            this.script.echo 'exec: starting: node'
+            if (this.label) {
+                this.script.echo "exec: starting: node: ${this.label}"
+                this.script.node(this.label) {
+                    this.exec.each { name, task ->
+                        if (name != '~s~t~e~p~s~' ) {
+                            this.script.stage(name) {
+                                task()
+                            }
+                        } else {
+                            task()
+                        }
+                    }
+                }
+            } else {
+                this.script.node {
+                    this.script.echo 'exec: starting: node'
+                    this.exec.each { name, task ->
+                        if (name) {
+                            this.script.stage(name) {
+                                task()
+                            }
+                        } else {
+                            task()
+                        }
+                    }
+                }
             }
         } else {
-            this.script.podTemplate {
-                this.script.node(this.exec)
+            this.exec.each { name, task ->
+                if (name) {
+                    this.script.stage(name) {
+                        task()
+                    }
+                } else {
+                    task()
+                }
             }
         }
     }
-
 }
