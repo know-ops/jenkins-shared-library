@@ -75,7 +75,7 @@ class AgentSpec implements Serializable {
     }
 
     void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.script.echo 'cfg: stages'
+        this.script.echo 'cfg: agent: stages'
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
 
         if (this.kubernetes) {
@@ -87,7 +87,7 @@ class AgentSpec implements Serializable {
 
             this.exec[name] = this.aStage[name].&call
         }
-        this.script.echo 'cfg: stages'
+        this.script.echo 'cfg: agent: stages'
     }
 
     void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
