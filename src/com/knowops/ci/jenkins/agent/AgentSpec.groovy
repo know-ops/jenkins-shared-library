@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-package com.knowops.ci.jenkins
+package com.knowops.ci.jenkins.agent
 
 /***
 * TO-DO: throw exception if steps is assigned, with either stage or stages

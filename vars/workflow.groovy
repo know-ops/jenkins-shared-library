@@ -2,7 +2,7 @@
 
 import groovy.lang.DelegatesTo
 
-import com.knowops.ci.jenkins.WorkflowSpec
+import com.knowops.ci.jenkins.core.WorkflowSpec
 
 void call(@DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=WorkflowSpec) Closure<?> wf) {
 
