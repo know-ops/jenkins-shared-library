@@ -48,9 +48,15 @@ Build Tool: ${project.buildTool}
                 }
 
                 steps {
-                    echo "${env}"
-                    echo "${env.GIT_COMMIT}"
-                    echo "${env.GIT_BRANCH}"
+                    script {
+                        def fields = env.getEnvironment()
+
+                        fields.each { key, value -> 
+                            println("${key} = ${value}");
+                        }
+
+                        println(env.PATH)
+                    }
                 }
             }
         }
