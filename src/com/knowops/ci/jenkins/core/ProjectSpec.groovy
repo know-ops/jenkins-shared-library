@@ -7,18 +7,15 @@ import groovy.json.JsonParserType
 /**
  * Simple class to run a CI/CD pipeline
  */
-class ProjectSpec implements Serializable {
+class ProjectSpec extends BaseSpec {
 
     private String name
     private String repository
     private ArrayList<String> language
     private String buildTool
 
-    // This is the Jenkins steps object
-    private final Object script
-
     ProjectSpec(Object s) {
-        this.script = s
+        super(s)
     }
 
     void setName(String n) {

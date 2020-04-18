@@ -51,7 +51,7 @@ class AgentSpec implements Serializable {
     void steps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
         this.script.echo 'cfg: agent: steps'
         s.resolveStrategy = Closure.DELEGATE_FIRST
-        
+
         if (this.kubernetes) {
             this.kubernetes.steps(s)
         } else {
