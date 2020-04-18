@@ -1,6 +1,8 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins
 
+import com.knowops.ci.jenkins.agent
+
 class BaseSpec implements Serializable {
 
     final Object script

@@ -8,6 +8,8 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
+import com.knowops.ci.jenkins.core
+
 class AgentSpec implements Serializable {
 
     String label
