@@ -49,6 +49,8 @@ Build Tool: ${project.buildTool}
 
                 steps {
                     echo "${env}"
+                    echo "${env.GIT_COMMIT}"
+                    echo "${env.GIT_BRANCH}"
                 }
             }
         }
