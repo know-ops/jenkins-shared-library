@@ -28,7 +28,7 @@ Build Tool: ${project.buildTool}
                 }
             }
 
-            stage('Environment') {
+            stage('Node Environment') {
                 agent {
                     kubernetes {
                         label 'k8s-agent'
@@ -37,6 +37,18 @@ Build Tool: ${project.buildTool}
 
                 steps {
                     sh 'printenv | sort'
+                }
+            }
+
+            stage('Pipeline Environment') {
+                agent {
+                    kubernetes {
+                        label 'k8s-agent'
+                    }
+                }
+
+                steps {
+                    echo "${env}"
                 }
             }
         }
