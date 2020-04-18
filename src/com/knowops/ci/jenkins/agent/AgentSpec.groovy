@@ -8,7 +8,8 @@ package com.knowops.ci.jenkins.agent
 
 import groovy.lang.DelegatesTo
 
-import com.knowops.ci.jenkins.core
+import com.knowops.ci.jenkins.core.StagesSpec
+import com.knowops.ci.jenkins.core.StageSpec
 
 class AgentSpec implements Serializable {
 
