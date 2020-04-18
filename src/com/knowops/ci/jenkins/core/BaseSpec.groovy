@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins.core
 
-import com.knowops.ci.jenkins.agent
+import com.knowops.ci.jenkins.agent.AgentSpec
 
 class BaseSpec implements Serializable {
 
