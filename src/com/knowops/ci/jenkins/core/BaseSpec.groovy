@@ -1,5 +1,5 @@
 #!/usr/bin/env groovy
-package com.knowops.ci.jenkins
+package com.knowops.ci.jenkins.core
 
 import com.knowops.ci.jenkins.agent
 
