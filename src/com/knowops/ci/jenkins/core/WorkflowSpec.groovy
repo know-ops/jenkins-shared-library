@@ -29,7 +29,7 @@ class WorkflowSpec extends BaseSpec {
         switch(this.ag.platform) {
             case 'kubernetes':
                 this.ag.stage('Project: Checkout') {
-                    this.checkout(this.script.scm).each { k, v ->
+                    this.script.checkout(this.script.scm).each { k, v ->
                         env.setProperty(k, v)
                     }
                 }
