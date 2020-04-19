@@ -121,7 +121,7 @@ class AgentSpec implements Serializable {
             case 'kubernetes':
                 if (this instanceof AgentSpec) {
                     s.echo 'init: agent: kubernetes'
-                    this.kubernetes = new KubernetesSpec(p, s)
+                    this.kubernetes = new KubernetesSpec(this.platform, s)
                 }
                 break
         }
