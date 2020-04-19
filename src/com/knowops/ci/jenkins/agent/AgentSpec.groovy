@@ -39,6 +39,7 @@ class AgentSpec implements Serializable {
         this.script.echo "label: ${l}"
         switch (this.platform) {
             case 'kubernetes':
+                this.script.echo "label: kubernetes: ${l}"
                 this.kubernetes.label(l)
 
                 break
