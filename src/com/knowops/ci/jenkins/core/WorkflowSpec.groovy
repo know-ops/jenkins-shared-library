@@ -27,6 +27,8 @@ class WorkflowSpec extends BaseSpec {
         // HACK: to make sure project language detection happens in it's own pod
         // this.project.language
         this.project.init()
+
+        this.ag.exec['Project'] = this.project.&call
     }
 
     void stages(String name, Closure<?> stgs) {

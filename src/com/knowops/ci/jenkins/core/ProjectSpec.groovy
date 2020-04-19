@@ -112,7 +112,7 @@ class ProjectSpec extends BaseSpec {
     }
 
     void init() {
-        switch(this.ag.platform) {
+        switch (this.ag.platform) {
             case 'kubernetes':
                 this.ag.label('k8s-project-agent')
                 this.ag.stage('Project: Checkout') {
