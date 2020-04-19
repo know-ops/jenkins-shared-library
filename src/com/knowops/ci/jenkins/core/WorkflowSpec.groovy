@@ -8,14 +8,14 @@ class WorkflowSpec extends BaseSpec {
     private ProjectSpec project
 
     WorkflowSpec(Object s) {
-        s.echo 'init: workflow'
         super(s)
+        s.echo 'init: workflow'
         this.init()
     }
 
     WorkflowSpec(String p, Object s) {
-        s.echo "init: workflow: platform: ${p}"
         super(p, s)
+        s.echo "init: workflow: platform: ${p}"
         this.init(p)
     }
 
