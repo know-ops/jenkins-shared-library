@@ -62,7 +62,7 @@ class AgentSpec implements Serializable {
         }
     }
 
-    void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
+    void stage(String name, Closure<?> stg) {
         switch (this.platform) {
             case 'kubernetes':
                 this.kubernetes.stage(name, stg)
@@ -137,7 +137,7 @@ class AgentSpec implements Serializable {
         this.exec[''] = s
     }
 
-    void doStage() {
+    void doStage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
         stg.resolveStrategy = Closure.DELEGATE_FIRST
 
         this.stage[name] = new StageSpec(this.script)
