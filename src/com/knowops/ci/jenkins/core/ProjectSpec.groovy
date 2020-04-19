@@ -115,7 +115,7 @@ class ProjectSpec extends BaseSpec {
 
     @NonCPS
     void init() {
-        switch(this.platform) {
+        switch(this.ag.platform) {
             case 'kubernetes':
 
                 break
