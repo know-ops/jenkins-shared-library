@@ -35,6 +35,7 @@ class AgentSpec implements Serializable {
     }
 
     void label(String l) {
+        this.script.echo "label: ${l}"
         switch (this.platform) {
             case 'kubernetes':
                 this.kubernetes.label(l)
@@ -74,6 +75,7 @@ class AgentSpec implements Serializable {
     }
 
     void stages(String name, Closure<?> stgs) {
+        this.script.echo "stages: ${name}"
         switch (this.platform) {
             case 'kubernetes':
                 this.kubernetes.stages(name, stgs)
@@ -107,6 +109,7 @@ class AgentSpec implements Serializable {
         }
     }
 
+    @NonCPS
     private void init(Object s) {
         this.script = s
 
