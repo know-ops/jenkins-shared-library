@@ -127,7 +127,7 @@ Repository: ${project.repository}
 Language: ${project.language}
 Build Tool: ${project.buildTool}
                                         """
-                                    }
+
                                     project.language = project.parseJson(
                                         sh(
                                             returnStdout: true,
