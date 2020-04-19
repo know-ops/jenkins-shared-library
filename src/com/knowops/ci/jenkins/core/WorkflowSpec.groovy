@@ -30,7 +30,7 @@ class WorkflowSpec extends BaseSpec {
             case 'kubernetes':
                 this.ag.stage('Project: Checkout') {
                     steps {
-                        checkout(this.script.scm).each { k, v ->
+                        checkout(scm).each { k, v ->
                             env.setProperty(k, v)
                         }
                     }
@@ -40,7 +40,7 @@ class WorkflowSpec extends BaseSpec {
             default:
                 this.ag.stage('Project: Checkout') {
                     steps {
-                        checkout(this.script.scm).each { k, v ->
+                        checkout(scm).each { k, v ->
                             env.setProperty(k, v)
                         }
                     }
