@@ -5,7 +5,7 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec extends BaseSpec {
 
-    StagesSpec(String, p, Object s) {
+    StagesSpec(String p, Object s) {
         super(p, s)
     }
 
