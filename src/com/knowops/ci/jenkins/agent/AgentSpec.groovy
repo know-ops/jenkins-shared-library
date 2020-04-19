@@ -30,9 +30,9 @@ class AgentSpec implements Serializable {
     }
 
     AgentSpec(String p, Object s) {
-        this.init(s)
         s.echo "init: platform: ${p}"
         this.platform = p
+        this.init(s)
     }
 
     void label(String l) {
