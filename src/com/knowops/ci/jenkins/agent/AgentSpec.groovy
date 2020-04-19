@@ -119,8 +119,10 @@ class AgentSpec implements Serializable {
         s.echo "init: agent: ${this.platform}"
         switch (this.platform) {
             case 'kubernetes':
-                s.echo 'init: agent: kubernetes'
-                this.kubernetes = new KubernetesSpec(s)
+                if (this instanceof AgentSpec) {
+                    s.echo 'init: agent: kubernetes'
+                    this.kubernetes = new KubernetesSpec(p, s)
+                }
                 break
         }
 
@@ -174,7 +176,6 @@ class AgentSpec implements Serializable {
                 this.doExec()
             }
         } else {
-            this.script.echo 'exec: starting: node'
             this.script.node {
                 this.doExec()
             }

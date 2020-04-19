@@ -7,6 +7,31 @@ class KubernetesSpec extends AgentSpec {
         super(s)
     }
 
+    KubernetesSpec(Object s) {
+        super(p, s)
+    }
+
+    @Override
+    void label(String l) {
+        this.script.echo "label: kubernetes: ${l}"
+        this.doLabel(l)
+    }
+
+    @Override
+    void steps(Closure<?> s) {
+        this.doSteps(s)
+    }
+
+    @Override
+    void stage(String name, Closure<?> stg) {
+        this.doStage(name, stg)
+    }
+
+    @Override
+    void stages(String name, Closure<?> stgs) {
+        this.doStages(name, stgs)
+    }
+ 
     @Override
     void call() {
         if (this.node) {
