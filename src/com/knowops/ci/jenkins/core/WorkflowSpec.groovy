@@ -28,6 +28,7 @@ class WorkflowSpec extends BaseSpec {
         // this.project.language
         switch(this.ag.platform) {
             case 'kubernetes':
+                this.ag.label('k8s-project-agent')
                 this.ag.stage('Project: Checkout') {
                     steps {
                         checkout(scm).each { k, v ->
