@@ -53,4 +53,14 @@ class KubernetesSpec extends AgentSpec {
         }
     }
 
+    @Override
+    Boolean getNode() {
+        return this.node
+    }
+
+    @Override
+    void setNode(Boolean node) {
+        this.node = node
+    }
+
 }

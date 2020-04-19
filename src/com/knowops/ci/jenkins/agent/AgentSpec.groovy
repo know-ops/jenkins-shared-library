@@ -200,7 +200,7 @@ class AgentSpec implements Serializable {
     Boolean getNode() {
         switch (this.platform) {
             case 'kubernetes':
-                return this.kubernetes.node
+                return this.kubernetes.getNode()
 
             default:
                 return this.node
@@ -212,7 +212,7 @@ class AgentSpec implements Serializable {
     void setNode(Boolean node) {
         switch (this.platform) {
             case 'kubernetes':
-                this.kubernetes.node = node
+                this.kubernetes.setNode(node)
 
                 break
             default:
