@@ -5,7 +5,7 @@ import groovy.lang.DelegatesTo
 
 class WorkflowSpec extends BaseSpec {
 
-    private ProjectSpec project
+    ProjectSpec project
 
     WorkflowSpec(Object s) {
         super(s)

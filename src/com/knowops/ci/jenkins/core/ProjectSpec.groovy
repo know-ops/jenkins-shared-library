@@ -121,7 +121,7 @@ class ProjectSpec extends BaseSpec {
                         stage('Language') {
                             steps {
                                 container('linguist') {
-                                    this.language = this.parseJson(
+                                    project.language = project.parseJson(
                                         sh(
                                             returnStdout: true,
                                             script: 'github-linguist --json'
