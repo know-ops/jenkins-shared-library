@@ -96,7 +96,7 @@ class AgentSpec implements Serializable {
     void call() {
         switch (this.platform) {
             case 'kubernetes':
-                this.kubernetes()
+                this.kubernetes.call()
 
                 break
             default:
