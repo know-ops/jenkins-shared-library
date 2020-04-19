@@ -111,7 +111,7 @@ class AgentSpec implements Serializable {
     }
 
     @NonCPS
-    private void init(Object s) {
+    void init(Object s) {
         s.echo 'init: agent'
         this.script = s
 
