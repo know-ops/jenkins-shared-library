@@ -129,7 +129,7 @@ class AgentSpec implements Serializable {
 
     void doLabel(l) {
         this.label = l
-        this.node.setNode(true)
+        this.setNode(true)
     }
 
     void doSteps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
