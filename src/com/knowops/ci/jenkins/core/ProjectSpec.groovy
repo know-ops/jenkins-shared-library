@@ -119,11 +119,13 @@ class ProjectSpec extends BaseSpec {
                         parallel true
 
                         stage('Language') {
-                            container('linguist') {
-                                project.language = parseJson(sh(
-                                    returnStdout: true,
-                                    script: 'github-linguist --json'
-                                ))
+                            steps {
+                                container('linguist') {
+                                    project.language = parseJson(sh(
+                                        returnStdout: true,
+                                        script: 'github-linguist --json'
+                                    ))
+                                }
                             }
                         }
                     }
