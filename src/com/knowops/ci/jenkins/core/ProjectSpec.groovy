@@ -13,6 +13,7 @@ class ProjectSpec extends BaseSpec {
     private String repository
     private ArrayList<String> language
     private String buildTool
+    private Boolean autodetect = true
 
     ProjectSpec(Object s) {
         super(s)
@@ -71,17 +72,7 @@ class ProjectSpec extends BaseSpec {
             return this.language
         }
 
-        // TO-DO: split between different environments, i.e. bare metal, kubernetes, docker, etc.
-        this.script.podTemplate(label: 'k8s-github-linguist-agent') {
-            this.script.node('k8s-github-linguist-agent') {
-                this.script.checkout this.script.scm
-                this.script.container('linguist') {
-                    this.language = this.doLanguage()
-                }
-            }
-        }
-
-        return this.language
+        return []
     }
 
     /**
@@ -112,23 +103,28 @@ class ProjectSpec extends BaseSpec {
     }
 
     void init() {
+        this.ag.stage('Project: Checkout') {
+            steps {
+                checkout(scm).each { k, v ->
+                    env.setProperty(k, v)
+                }
+            }
+        }
+
         switch (this.ag.platform) {
             case 'kubernetes':
                 this.ag.label('k8s-project-agent')
-                this.ag.stage('Project: Checkout') {
-                    steps {
-                        checkout(scm).each { k, v ->
-                            env.setProperty(k, v)
-                        }
-                    }
-                }
+                if (this.autodetect) {
+                    this.ag.stages('Auto-Detect'} {
+                        parallel true
 
-                break
-            default:
-                this.ag.stage('Project: Checkout') {
-                    steps {
-                        checkout(scm).each { k, v ->
-                            env.setProperty(k, v)
+                        stage('Language') {
+                            container('linguist') {
+                                project.language = parseJson(sh(
+                                    returnStdout: true,
+                                    script: 'github-linguist --json'
+                                ))
+                            }
                         }
                     }
                 }
