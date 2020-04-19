@@ -5,6 +5,7 @@ import com.knowops.ci.jenkins.agent.AgentSpec
 
 class BaseSpec implements Serializable {
 
+    ProjectSpec project
     final Object script
     final AgentSpec ag
 
