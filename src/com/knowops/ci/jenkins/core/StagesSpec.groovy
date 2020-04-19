@@ -5,12 +5,12 @@ import groovy.lang.DelegatesTo
 
 class StagesSpec extends BaseSpec {
 
-    StagesSpec(Object s) {
-        super(s)
-    }
-
     StagesSpec(String, p, Object s) {
         super(p, s)
+    }
+
+    StagesSpec(Object s) {
+        super(s)
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
