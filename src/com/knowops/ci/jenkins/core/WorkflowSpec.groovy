@@ -51,7 +51,7 @@ class WorkflowSpec extends BaseSpec {
 
     Closure doCheckout() {
         return {
-            checkout(this.scrip.scm).each { k, v ->
+            checkout(this.script.scm).each { k, v ->
                 env.setProperty(k, v)
             }
         }
