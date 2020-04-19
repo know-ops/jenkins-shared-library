@@ -16,12 +16,10 @@ class ProjectSpec extends BaseSpec {
 
     ProjectSpec(Object s) {
         super(s)
-        this.init()
     }
 
     ProjectSpec(String p, Object s) {
         super(p, s)
-        this.init()
     }
 
     void setName(String n) {
@@ -111,28 +109,6 @@ class ProjectSpec extends BaseSpec {
         JsonSlurper jsonSlurper = new JsonSlurper().setType(JsonParserType.LAX)
 
         return jsonSlurper.parseText(txt)
-    }
-
-    @NonCPS
-    void init() {
-        switch(this.ag.platform) {
-            case 'kubernetes':
-                this.ag.stage('Project: Checkout') {
-                    checkout(scm).each { k, v ->
-                        env.setProperty(k, v)
-                    }
-                }
-
-                break
-            default:
-                this.ag.stage('Project: Checkout') {
-                    checkout(scm).each { k, v ->
-                        env.setProperty(k, v)
-                    }
-                }
-
-                break
-        }
     }
 
 }
