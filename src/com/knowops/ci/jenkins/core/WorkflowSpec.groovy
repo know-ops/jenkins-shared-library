@@ -50,8 +50,8 @@ class WorkflowSpec extends BaseSpec {
     }
 
     void doCheckout() {
-        checkout(scm).each { k, v ->
-            env.setProperty(k, v)
+        this.script.checkout(this.script.scm).each { k, v ->
+            this.env.setProperty(k, v)
         }
     }
 
