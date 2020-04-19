@@ -43,7 +43,7 @@ Build Tool: ${project.buildTool}
 
                 steps {
                     script {
-                        def fields = env.getEnvironment()
+                        def fields = scm.userRemoteConfigs[0]
 
                         fields.each { key, value -> 
                             println("${key} = ${value}")
