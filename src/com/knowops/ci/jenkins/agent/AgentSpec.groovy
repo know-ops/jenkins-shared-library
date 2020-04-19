@@ -107,6 +107,7 @@ class AgentSpec implements Serializable {
         }
     }
 
+    @NonCPS
     private void init(Object s) {
         this.script = s
 

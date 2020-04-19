@@ -18,7 +18,6 @@ class WorkflowSpec extends BaseSpec {
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
-        this.script.echo 'cfg: workflow: project'
         if (pj) {
             pj.resolveStrategy = Closure.DELEGATE_FIRST
             pj.delegate = this.project
@@ -40,7 +39,8 @@ class WorkflowSpec extends BaseSpec {
         this.stages('', stgs)
     }
 
-    private void init(String platform = "") {
+    @NonCPS
+    private void init(String platform = '') {
         this.script.echo 'init: workflow'
         if (platform) {
             this.project = new ProjectSpec(platform, this.script)
