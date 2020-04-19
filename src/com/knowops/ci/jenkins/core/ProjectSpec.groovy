@@ -115,7 +115,7 @@ class ProjectSpec extends BaseSpec {
             case 'kubernetes':
                 this.ag.label('k8s-project-agent')
                 if (this.autodetect) {
-                    this.ag.stages('Auto-Detect'} {
+                    this.ag.stages('Auto-Detect') {
                         parallel true
 
                         stage('Language') {
