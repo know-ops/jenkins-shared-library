@@ -9,8 +9,12 @@ class WorkflowSpec extends BaseSpec {
 
     WorkflowSpec(Object s) {
         super(s)
-        s.echo 'init: workflow'
-        this.project = new ProjectSpec(s)
+        this.init()
+    }
+
+    WorkflowSpec(String p, Object s) {
+        super(p, s)
+        this.init(p)
     }
 
     void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closure<?> pj = null) {
@@ -36,4 +40,12 @@ class WorkflowSpec extends BaseSpec {
         this.stages('', stgs)
     }
 
+    private void init(String platform = "") {
+        this.script.echo 'init: workflow'
+        if (platform) {
+            this.project = new ProjectSpec(platform, this.script)
+        } else {
+            this.project = new ProjectSpec(this.script)
+        }
+    }
 }

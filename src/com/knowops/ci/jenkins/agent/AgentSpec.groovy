@@ -20,112 +20,148 @@ class AgentSpec implements Serializable {
     KubernetesSpec kubernetes
 
     final Object script
-    final Map<String,StagesSpec> aStages = [:]
-    final Map<String,StageSpec> aStage = [:]
+    final String platform
+    final Map<String,StagesSpec> stages = [:]
+    final Map<String,StageSpec> stage = [:]
     final Map<String,Closure> exec = [:]
 
     AgentSpec(Object s) {
-        s.echo 'init: agent'
-        this.script = s
+        this.init(s)
+    }
+
+    AgentSpec(String p, Object s) {
+        this.init(s)
+        this.platform = p
     }
 
     void label(String l) {
-        this.script.echo "cfg: agent: ${label}"
-        this.label = l
-        this.node = true
-        this.script.echo "cfg: agent: ${label}"
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes.label(l)
+
+                break
+            default:
+                this.doLabel(l)
+
+                break
+        }
     }
 
-    void kubernetes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=KubernetesSpec) Closure<?> k8s) {
-        this.script.echo "cfg: agent: kubernetes"
-        this.kubernetes = new KubernetesSpec(this.script)
+    void steps(Closure<?> s) {
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes.steps(s)
 
-        if (k8s) {
-            k8s.resolveStrategy = Closure.DELEGATE_FIRST
-            k8s.delegate = this.kubernetes
-            k8s()
+                break
+            default:
+                this.doSteps(s)
+
+                break
         }
-        this.script.echo "cfg: agent: kubernetes: ${this.kubernetes.label}"
-    }
-
-    void steps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
-        this.script.echo 'cfg: agent: steps'
-        s.resolveStrategy = Closure.DELEGATE_FIRST
-
-        if (this.kubernetes) {
-            this.kubernetes.steps(s)
-        } else {
-            s.delegate = this.script
-
-            this.exec[''] = s
-        }
-        this.script.echo 'cfg: agent: steps'
     }
 
     void stage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
-        this.script.echo "cfg: agent: stage: ${name}"
-        stg.resolveStrategy = Closure.DELEGATE_FIRST
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes.stage(name, stg)
 
-        if (this.kubernetes) {
-            this.script.echo "cfg: agent: stage: kubernetes"
-            this.kubernetes.stage(name, stg)
-            this.script.echo "cfg: agent: stage: kubernetes"
-        } else {
-            this.script.echo "cfg: agent: stage: default"
-            this.aStage[name] = new StageSpec(this.script)
-            stg.delegate = this.aStage[name]
-            stg()
+                break
+            default:
+                this.doStage(name, stg)
 
-            this.exec[name] = this.aStage[name].&call
-            this.script.echo "cfg: agent: stage: default"
+                break
         }
-        this.script.echo 'cfg: agent: stage'
     }
 
-    void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.script.echo 'cfg: agent: stages'
-        stgs.resolveStrategy = Closure.DELEGATE_FIRST
+    void stages(String name, Closure<?> stgs) {
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes.stages(name, stgs)
 
-        if (this.kubernetes) {
-            this.script.echo 'cfg: agent: stages: kubernetes'
-            this.kubernetes.stages(name, stgs)
-            this.script.echo 'cfg: agent: stages: kubernetes'
-        } else {
-            this.script.echo 'cfg: agent: stages: default'
-            this.aStages[name] = new StagesSpec(this.script)
-            stgs.delegate = this.aStages[name]
-            stgs()
+                break
+            default:
+                this.doStages(name, stgs)
 
-            this.exec[name] = this.aStages[name].&call
-            this.script.echo 'cfg: agent: stages: default'
+                break
         }
-        this.script.echo 'cfg: agent: stages'
     }
 
-    void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
+    void stages(Closure<?> stgs) {
         this.stages('', stg)
     }
 
     void call() {
-        this.script.echo 'exec: starting'
-        if (this.kubernetes) {
-            this.script.echo 'exec: starting: kubernetes'
-            this.kubernetes.call()
-        } else if (this.node) {
-            this.script.echo 'exec: starting: node'
-            if (this.label) {
-                this.script.echo "exec: starting: node: ${this.label}"
-                this.script.node(this.label) {
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes()
+
+                break
+            default:
+                if (this.node) {
+                    this.doNode()
+                } else {
                     this.doExec()
                 }
-            } else {
-                this.script.echo 'exec: starting: node'
-                this.script.node {
-                    this.doExec()
-                }
+
+                break
+        }
+    }
+
+    private void init(Object s) {
+        this.script = s
+
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes = new KubernetesSpec(s)
+                break
+        }
+
+    }
+
+    void doLabel(l) {
+        this.label = l
+        this.node = true
+    }
+
+    void doSteps(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> s) {
+        s.resolveStrategy = Closure.DELEGATE_FIRST
+        s.delegate = this.script
+
+        this.exec[''] = s
+    }
+
+    void doStage() {
+        stg.resolveStrategy = Closure.DELEGATE_FIRST
+
+        this.stage[name] = new StageSpec(this.script)
+
+        stg.delegate = this.stage[name]
+        stg()
+
+        this.exec[name] = this.stage[name].&call
+    }
+
+    void doStages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
+        stgs.resolveStrategy = Closure.DELEGATE_FIRST
+
+        this.stages[name] = new StagesSpec(this.script)
+
+        stgs.delegate = this.stages[name]
+        stgs()
+
+        this.exec[name] = this.stages[name].&call
+    }
+
+    void doNode() {
+        if (this.label) {
+            this.script.node(this.label) {
+                this.doExec()
             }
         } else {
-            this.doExec()
+            this.script.echo 'exec: starting: node'
+            this.script.node {
+                this.doExec()
+            }
         }
     }
 
@@ -144,4 +180,30 @@ class AgentSpec implements Serializable {
             }
         }
     }
+
+    Boolean getNode() {
+        switch (this.platform) {
+            case 'kubernetes':
+                return this.kubernetes.node
+
+            default:
+                return this.node
+
+        }
+    }
+
+
+    void setNode(Boolean node) {
+        switch (this.platform) {
+            case 'kubernetes':
+                this.kubernetes.node = node
+
+                break
+            default:
+                this.node = node
+
+                break
+        }
+    }
+
 }

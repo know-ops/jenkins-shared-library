@@ -13,6 +13,11 @@ class BaseSpec implements Serializable {
         this.ag = new AgentSpec(this.script)
     }
 
+    BaseSpec(String p, Object s) {
+        this.script = s
+        this.ag = new AgentSpec(p, this.script)
+    }
+
     void agent(String a) {
         switch (s) {
             case 'any':

@@ -18,6 +18,10 @@ class ProjectSpec extends BaseSpec {
         super(s)
     }
 
+    ProjectSpec(String p, Object s) {
+        super(p, s)
+    }
+
     void setName(String n) {
         this.name = n
     }
