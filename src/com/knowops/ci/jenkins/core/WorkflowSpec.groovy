@@ -49,8 +49,6 @@ class WorkflowSpec extends BaseSpec {
 
                 break
         }
-
-        this.ag.stages('', this.project.&call)
     }
 
     void stages(String name, Closure<?> stgs) {
