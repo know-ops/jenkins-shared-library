@@ -28,19 +28,11 @@ class WorkflowSpec extends BaseSpec {
         // this.project.language
         switch(this.ag.platform) {
             case 'kubernetes':
-                this.ag.stage('Project: Checkout') {
-                    this.script.checkout(this.script.scm).each { k, v ->
-                        env.setProperty(k, v)
-                    }
-                }
+                this.ag.stage('Project: Checkout', this.&doCheckout)
 
                 break
             default:
-                this.ag.stage('Project: Checkout') {
-                    this.script.checkout(this.script.scm).each { k, v ->
-                        env.setProperty(k, v)
-                    }
-                }
+                this.ag.stage('Project: Checkout', this.&doCheckout)
 
                 break
         }
@@ -55,6 +47,12 @@ class WorkflowSpec extends BaseSpec {
 
     void stages(Closure<?> stgs) {
         this.stages('', stgs)
+    }
+
+    void doCheckout() {
+        checkout(scm).each { k, v ->
+            env.setProperty(k, v)
+        }
     }
 
     @NonCPS
