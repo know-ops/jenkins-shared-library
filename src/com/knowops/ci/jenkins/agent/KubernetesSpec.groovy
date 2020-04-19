@@ -7,7 +7,7 @@ class KubernetesSpec extends AgentSpec {
         super(s)
     }
 
-    KubernetesSpec(Object s) {
+    KubernetesSpec(String p, Object s) {
         super(p, s)
     }
 
