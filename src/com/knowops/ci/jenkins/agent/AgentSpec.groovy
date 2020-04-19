@@ -16,11 +16,11 @@ class AgentSpec implements Serializable {
     String label
     Boolean node = false
     Boolean parallel = false
+    String platform
+    Object script
 
     KubernetesSpec kubernetes
 
-    final Object script
-    final String platform
     final Map<String,StagesSpec> stages = [:]
     final Map<String,StageSpec> stage = [:]
     final Map<String,Closure> exec = [:]
