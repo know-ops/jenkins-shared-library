@@ -3,6 +3,8 @@ package com.knowops.ci.jenkins.agent
 
 class KubernetesSpec extends AgentSpec {
 
+    Boolean node = false
+
     KubernetesSpec(Object s) {
         super(s)
     }
