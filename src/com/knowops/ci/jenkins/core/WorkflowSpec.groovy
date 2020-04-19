@@ -41,11 +41,11 @@ class WorkflowSpec extends BaseSpec {
 
     @NonCPS
     private void init(String platform = '') {
-        this.script.echo 'init: workflow'
         if (platform) {
             this.project = new ProjectSpec(platform, this.script)
         } else {
             this.project = new ProjectSpec(this.script)
         }
     }
+
 }

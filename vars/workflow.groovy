@@ -21,7 +21,6 @@ void call(String platform, Closure<?> wf) {
 void doWorkflow(WorkflowSpec workflow, @DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=WorkflowSpec) Closure<?> wf) {
     wf.resolveStrategy = Closure.DELEGATE_FIRST
     wf.delegate = workflow
-    echo 'init'
     wf()
 
     echo 'exec'

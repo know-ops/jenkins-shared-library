@@ -31,6 +31,7 @@ class AgentSpec implements Serializable {
 
     AgentSpec(String p, Object s) {
         this.init(s)
+        s.echo "init: platform: ${p}"
         this.platform = p
     }
 
@@ -111,6 +112,7 @@ class AgentSpec implements Serializable {
 
     @NonCPS
     private void init(Object s) {
+        s.echo 'init: agent'
         this.script = s
 
         switch (this.platform) {
