@@ -117,11 +117,18 @@ class ProjectSpec extends BaseSpec {
     void init() {
         switch(this.ag.platform) {
             case 'kubernetes':
+                this.ag.stage('Project: Checkout') {
+                    checkout(scm).each { k, v ->
+                        env.setProperty(k, v)
+                    }
+                }
 
                 break
             default:
                 this.ag.stage('Project: Checkout') {
-                    checkout(scm).each { k,v -> env.setProperty(k, v) }
+                    checkout(scm).each { k, v ->
+                        env.setProperty(k, v)
+                    }
                 }
 
                 break
