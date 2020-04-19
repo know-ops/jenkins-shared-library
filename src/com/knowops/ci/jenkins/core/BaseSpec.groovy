@@ -46,7 +46,7 @@ class BaseSpec implements Serializable {
     }
 
     void call() {
-        this.script.echo "excuting agent for ${this.class}"
+        this.script.echo "executing agent for ${this.class}"
         this.ag.call()
     }
 

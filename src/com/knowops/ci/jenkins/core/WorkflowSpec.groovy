@@ -8,11 +8,13 @@ class WorkflowSpec extends BaseSpec {
     private ProjectSpec project
 
     WorkflowSpec(Object s) {
+        s.echo 'init: workflow'
         super(s)
         this.init()
     }
 
     WorkflowSpec(String p, Object s) {
+        s.echo "init: workflow: platform: ${p}"
         super(p, s)
         this.init(p)
     }
@@ -25,17 +27,15 @@ class WorkflowSpec extends BaseSpec {
         }
 
         // HACK: to make sure project language detection happens in it's own pod
-        this.project.language
-        this.script.echo 'cfg: workflow: project'
+        // this.project.language
     }
 
-    void stages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
-        this.script.echo 'cfg: workflow: stages'
+    void stages(String name, Closure<?> stgs) {
         this.ag.stages(name, stgs)
-        this.script.echo 'cfg: workflow: stages'
+
     }
 
-    void stages(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
+    void stages(Closure<?> stgs) {
         this.stages('', stgs)
     }
 
