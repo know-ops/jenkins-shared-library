@@ -15,7 +15,6 @@ class KubernetesSpec extends AgentSpec {
 
     @Override
     void label(String l) {
-        this.script.echo "label: kubernetes: ${l}"
         this.doLabel(l)
     }
 

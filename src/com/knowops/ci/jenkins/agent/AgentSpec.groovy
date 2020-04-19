@@ -30,16 +30,13 @@ class AgentSpec implements Serializable {
     }
 
     AgentSpec(String p, Object s) {
-        s.echo "init: platform: ${p}"
         this.platform = p
         this.init(s)
     }
 
     void label(String l) {
-        this.script.echo "label: ${l}"
         switch (this.platform) {
             case 'kubernetes':
-                this.script.echo "label: kubernetes: ${l}"
                 this.kubernetes.label(l)
 
                 break
@@ -77,7 +74,6 @@ class AgentSpec implements Serializable {
     }
 
     void stages(String name, Closure<?> stgs) {
-        this.script.echo "stages: ${name}"
         switch (this.platform) {
             case 'kubernetes':
                 this.kubernetes.stages(name, stgs)
@@ -113,10 +109,8 @@ class AgentSpec implements Serializable {
 
     @NonCPS
     void init(Object s) {
-        s.echo 'init: agent'
         this.script = s
 
-        s.echo "init: agent: ${this.platform}"
         switch (this.platform) {
             case 'kubernetes':
                 if (!(this instanceof KubernetesSpec)) {

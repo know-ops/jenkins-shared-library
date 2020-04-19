@@ -9,13 +9,11 @@ class WorkflowSpec extends BaseSpec {
 
     WorkflowSpec(Object s) {
         super(s)
-        s.echo 'init: workflow'
         this.init()
     }
 
     WorkflowSpec(String p, Object s) {
         super(p, s)
-        s.echo "init: workflow: platform: ${p}"
         this.init(p)
     }
 

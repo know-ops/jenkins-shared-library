@@ -9,13 +9,11 @@ class BaseSpec implements Serializable {
     final AgentSpec ag
 
     BaseSpec(Object s) {
-        s.echo "init: ${this.class}"
         this.script = s
         this.ag = new AgentSpec(this.script)
     }
 
     BaseSpec(String p, Object s) {
-        s.echo "init: ${this.class}: ${p}"
         this.script = s
         this.ag = new AgentSpec(p, this.script)
     }
@@ -48,7 +46,6 @@ class BaseSpec implements Serializable {
     }
 
     void call() {
-        this.script.echo "executing agent for ${this.class}"
         this.ag.call()
     }
 
