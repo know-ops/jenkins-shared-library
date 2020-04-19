@@ -10,7 +10,7 @@ class StageSpec extends BaseSpec {
     }
 
     StageSpec(String p, Object s) {
-        super(s)
+        super(p, s)
     }
 
     void steps(Closure<?> s) {
