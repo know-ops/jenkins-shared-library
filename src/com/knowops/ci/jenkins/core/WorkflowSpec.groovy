@@ -28,7 +28,7 @@ class WorkflowSpec extends BaseSpec {
         // this.project.language
         this.project.init()
 
-        this.ag.exec['Project'] = this.project.&call
+        this.ag.stages('', this.project.&call)
     }
 
     void stages(String name, Closure<?> stgs) {
