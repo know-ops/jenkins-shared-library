@@ -46,6 +46,7 @@ class BaseSpec implements Serializable {
     }
 
     void call() {
+        this.script.echo "${this.class}.call"
         this.ag.call()
     }
 
