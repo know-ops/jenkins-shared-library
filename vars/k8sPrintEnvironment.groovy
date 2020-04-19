@@ -43,10 +43,10 @@ Build Tool: ${project.buildTool}
 
                 steps {
                     script {
-                        def fields = scm.userRemoteConfigs[0]
+                        def fields = scm.branches
 
-                        fields.each { key, value -> 
-                            println("${key} = ${value}")
+                        fields.each { value -> 
+                            println("${value}")
                         }
 
                         println(env.PATH)
