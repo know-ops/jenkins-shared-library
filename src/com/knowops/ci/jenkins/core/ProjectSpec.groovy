@@ -121,6 +121,13 @@ class ProjectSpec extends BaseSpec {
                         stage('Language') {
                             steps {
                                 container('linguist') {
+                                    echo """
+Name: ${project.name}
+Repository: ${project.repository}
+Language: ${project.language}
+Build Tool: ${project.buildTool}
+                                        """
+                                    }
                                     project.language = project.parseJson(
                                         sh(
                                             returnStdout: true,
