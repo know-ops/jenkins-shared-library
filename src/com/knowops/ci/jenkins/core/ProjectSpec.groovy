@@ -111,4 +111,30 @@ class ProjectSpec extends BaseSpec {
         return jsonSlurper.parseText(txt)
     }
 
+    void init() {
+        switch(this.ag.platform) {
+            case 'kubernetes':
+                this.ag.label('k8s-project-agent')
+                this.ag.stage('Project: Checkout') {
+                    steps {
+                        checkout(scm).each { k, v ->
+                            env.setProperty(k, v)
+                        }
+                    }
+                }
+
+                break
+            default:
+                this.ag.stage('Project: Checkout') {
+                    steps {
+                        checkout(scm).each { k, v ->
+                            env.setProperty(k, v)
+                        }
+                    }
+                }
+
+                break
+        }
+    }
+
 }

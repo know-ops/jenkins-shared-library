@@ -26,29 +26,7 @@ class WorkflowSpec extends BaseSpec {
 
         // HACK: to make sure project language detection happens in it's own pod
         // this.project.language
-        switch(this.ag.platform) {
-            case 'kubernetes':
-                this.ag.label('k8s-project-agent')
-                this.ag.stage('Project: Checkout') {
-                    steps {
-                        checkout(scm).each { k, v ->
-                            env.setProperty(k, v)
-                        }
-                    }
-                }
-
-                break
-            default:
-                this.ag.stage('Project: Checkout') {
-                    steps {
-                        checkout(scm).each { k, v ->
-                            env.setProperty(k, v)
-                        }
-                    }
-                }
-
-                break
-        }
+        this.project.init()
     }
 
     void stages(String name, Closure<?> stgs) {
