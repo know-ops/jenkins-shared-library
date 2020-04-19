@@ -37,7 +37,7 @@ class WorkflowSpec extends BaseSpec {
                 break
             default:
                 this.ag.stage('Project: Checkout') {
-                    checkout(scm).each { k, v ->
+                    checkout(this.script.scm).each { k, v ->
                         env.setProperty(k, v)
                     }
                 }
