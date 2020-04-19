@@ -9,6 +9,10 @@ class StageSpec extends BaseSpec {
         super(s)
     }
 
+    StageSpec(String p, Object s) {
+        super(s)
+    }
+
     void steps(Closure<?> s) {
         this.ag.steps(s)
     }

@@ -141,7 +141,11 @@ class AgentSpec implements Serializable {
     void doStage(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StageSpec) Closure<?> stg) {
         stg.resolveStrategy = Closure.DELEGATE_FIRST
 
-        this.stage[name] = new StageSpec(this.script)
+        if (this.platform) {
+            this.stage[name] = new StageSpec(this.platform, this.script)
+        } else {
+            this.stage[name] = new StageSpec(this.script)
+        }
 
         stg.delegate = this.stage[name]
         stg()
@@ -152,7 +156,11 @@ class AgentSpec implements Serializable {
     void doStages(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=StagesSpec) Closure<?> stgs) {
         stgs.resolveStrategy = Closure.DELEGATE_FIRST
 
-        this.stages[name] = new StagesSpec(this.script)
+        if (this.platform) {
+            this.stages[name] = new StagesSpec(this.platform, this.script)
+        } else {
+            this.stages[name] = new StagesSpec(this.script)
+        }
 
         stgs.delegate = this.stages[name]
         stgs()
