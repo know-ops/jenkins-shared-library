@@ -7,16 +7,15 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonParserType
 import org.yaml.snakeyaml.Yaml
 
-Map.metaClass.merge = { Map rhs ->
-    def lhs = delegate // or delegate.clone() to make delegate immutable
-    rhs.each { k, v -> lhs[k] = lhs[k] in Map ? lhs[k].merge(v) : (lhs[k] != null ? lhs[k] && v : v) }   
-    lhs
-}
-
 /**
  * Simple class to run a CI/CD pipeline
  */
 class ProjectSpec extends BaseSpec {
+    Map.metaClass.merge = { Map rhs ->
+        def lhs = delegate // or delegate.clone() to make delegate immutable
+        rhs.each { k, v -> lhs[k] = lhs[k] in Map ? lhs[k].merge(v) : (lhs[k] != null ? lhs[k] && v : v) }   
+        lhs
+    }
 
     private String name
     private String repository
