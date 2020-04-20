@@ -28,8 +28,6 @@ class WorkflowSpec extends BaseSpec {
         // this.project.language
         this.project.initStages()
         this.script.echo "${this.class}.project"
-
-        this.stages('', this.project)
     }
 
     void stages(String name, Closure<?> stgs) {
@@ -41,6 +39,12 @@ class WorkflowSpec extends BaseSpec {
         this.stages('', stgs)
     }
 
+    @Override
+    void call() {
+        this.script.echo "workflow: ${this.class}.call"
+        this.project.call()
+        this.ag.call()
+    }
 
     @NonCPS
     private void init(String platform = '') {
