@@ -25,14 +25,20 @@ class ProjectSpec extends BaseSpec {
 
     void setName(String n) {
         this.name = n
+
+        this.script.env('PROJECT_NAME', this.name)
     }
 
     void setRepository(String r) {
         this.repository = r
+
+        this.script.env('PROJECT_REPOSITORY', this.repository)
     }
 
     void setLanguage(ArrayList<String> l) {
         this.language = l
+
+        this.script.env('PROJECT_LANGUAGE', this.language.join(' '))
     }
 
     void setBuildTool(String b) {
@@ -48,7 +54,9 @@ class ProjectSpec extends BaseSpec {
             return this.name
         }
 
-        return this.getRepository().replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+        this.name = this.getRepository().replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+
+        return this.name
     }
 
     /**
@@ -60,7 +68,9 @@ class ProjectSpec extends BaseSpec {
             return this.repository
         }
 
-        return this.script.scm.userRemoteConfigs[0].url
+        this.repository = this.script.scm.userRemoteConfigs[0].url
+
+        return this.repository
     }
 
     /**
