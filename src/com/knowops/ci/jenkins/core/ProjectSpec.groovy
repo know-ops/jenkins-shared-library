@@ -115,18 +115,18 @@ class ProjectSpec extends BaseSpec {
             case 'kubernetes':
                 this.ag.label('k8s-project-agent')
                 if (this.autodetect) {
-                    this.ag.stages('Auto-Detect') {
+                    this.ag.stages('Project: Auto-Detect') {
                         parallel true
 
                         stage('Language') {
                             steps {
                                 container('linguist') {
-                                    project.language = project.parseJson(
-                                        sh (
-                                            returnStdout: true,
-                                            script: 'github-linguist --json'
-                                        )
+                                    String languageJson = sh (
+                                        returnStdout: true,
+                                        script: 'github-linguist --json'
                                     )
+
+                                    project.language = project.parseJson(languageJson)
                                 }
                             }
                         }
