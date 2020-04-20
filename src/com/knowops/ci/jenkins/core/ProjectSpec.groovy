@@ -99,12 +99,6 @@ class ProjectSpec extends BaseSpec {
         return ""
     }
 
-    ArrayList<String> doLanguage() {
-        return this.parseJson(
-            this.script.sh(script: 'github-linguist --json', returnStdout: true)
-        ).keySet() as ArrayList
-    }
-
     @NonCPS
     Object parseJson(String txt) {
         JsonSlurper jsonSlurper = new JsonSlurper().setType(JsonParserType.LAX)
@@ -128,7 +122,7 @@ class ProjectSpec extends BaseSpec {
                     this.ag.stages('Project: Autodetect') {
                         parallel true
 
-                        stage('Language') {
+                        stage('Languages') {
                             steps {
                                 container('linguist') {
                                     String languageJson = sh (
@@ -142,6 +136,12 @@ class ProjectSpec extends BaseSpec {
 
                                     echo "${PROJECT_LANGUAGE}"
                                 }
+                            }
+                        }
+
+                        stage('Build Tools') {
+                            steps {
+                                echo "TO-DO: Dectect Build Took Configurations"
                             }
                         }
                     }
