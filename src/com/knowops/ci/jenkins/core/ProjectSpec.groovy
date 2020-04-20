@@ -1,8 +1,11 @@
 #!/usr/bin/env groovy
 package com.knowops.ci.jenkins.core
 
+@Grab('org.yaml:snakeyaml:1.26')
+
 import groovy.json.JsonSlurper
 import groovy.json.JsonParserType
+import org.yaml.snakeyaml.Yaml
 
 /**
  * Simple class to run a CI/CD pipeline
@@ -14,6 +17,8 @@ class ProjectSpec extends BaseSpec {
     private ArrayList<String> language
     private String buildTool
     private Boolean autodetect = true
+
+    private Map<String,Object> config = [:]
 
     ProjectSpec(Object s) {
         super(s)
