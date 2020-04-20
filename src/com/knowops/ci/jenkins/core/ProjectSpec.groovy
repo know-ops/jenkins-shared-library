@@ -119,7 +119,7 @@ class ProjectSpec extends BaseSpec {
     void init() {
         Yaml parser = new Yaml()
 
-        this.config = parser.load(s.libraryResource('config/project.yaml'))
+        this.config = parser.load(this.script.libraryResource('config/project.yaml'))
     }
 
     void initStages() {
