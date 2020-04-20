@@ -139,6 +139,8 @@ class ProjectSpec extends BaseSpec {
                                     project.language = project.parseJson(languageJson).keySet() as ArrayList
 
                                     env.setProperty('PROJECT_LANGUAGE', project.language.join(' '))
+
+                                    echo "${PROJECT_LANGUAGE}"
                                 }
                             }
                         }
