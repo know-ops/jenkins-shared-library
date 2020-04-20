@@ -1,0 +1,8 @@
+kubernetes:
+  node:
+    project:
+      label: 'k8s-project-agent'
+
+node:
+  project:
+    label: 'master'
