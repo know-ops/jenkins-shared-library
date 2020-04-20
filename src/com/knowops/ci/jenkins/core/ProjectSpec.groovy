@@ -102,7 +102,7 @@ class ProjectSpec extends BaseSpec {
         return jsonSlurper.parseText(txt)
     }
 
-    void init() {
+    void initStages() {
         this.ag.stage('Project: Checkout') {
             steps {
                 checkout(scm).each { k, v ->
