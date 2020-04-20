@@ -7,6 +7,12 @@ import groovy.json.JsonSlurper
 import groovy.json.JsonParserType
 import org.yaml.snakeyaml.Yaml
 
+Map.metaClass.merge = { Map rhs ->
+    def lhs = delegate // or delegate.clone() to make delegate immutable
+    rhs.each { k, v -> lhs[k] = lhs[k] in Map ? lhs[k].merge(v) : (lhs[k] != null ? lhs[k] && v : v) }   
+    lhs
+}
+
 /**
  * Simple class to run a CI/CD pipeline
  */
@@ -22,13 +28,14 @@ class ProjectSpec extends BaseSpec {
 
     ProjectSpec(Object s) {
         super(s)
+
+        this.init()
     }
 
     ProjectSpec(String p, Object s) {
         super(p, s)
-        Yaml parser = new Yaml()
 
-        this.config = parser.load(s.libraryResource('config/project.yaml'))
+        this.init()
     }
 
     void setName(String n) {
@@ -112,6 +119,13 @@ class ProjectSpec extends BaseSpec {
         JsonSlurper jsonSlurper = new JsonSlurper().setType(JsonParserType.LAX)
 
         return jsonSlurper.parseText(txt)
+    }
+
+    @NonCPS
+    void init() {
+        Yaml parser = new Yaml()
+
+        this.config = parser.load(s.libraryResource('config/project.yaml'))
     }
 
     void initStages() {
