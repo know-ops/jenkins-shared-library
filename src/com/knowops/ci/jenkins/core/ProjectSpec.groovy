@@ -26,19 +26,19 @@ class ProjectSpec extends BaseSpec {
     void setName(String n) {
         this.name = n
 
-        this.script.env('PROJECT_NAME', this.name)
+        this.script.env.setProperty('PROJECT_NAME', this.name)
     }
 
     void setRepository(String r) {
         this.repository = r
 
-        this.script.env('PROJECT_REPOSITORY', this.repository)
+        this.script.env.setProperty('PROJECT_REPOSITORY', this.repository)
     }
 
     void setLanguage(ArrayList<String> l) {
         this.language = l
 
-        this.script.env('PROJECT_LANGUAGE', this.language.join(' '))
+        this.script.env.setProperty('PROJECT_LANGUAGE', this.language.join(' '))
     }
 
     void setBuildTool(String b) {
