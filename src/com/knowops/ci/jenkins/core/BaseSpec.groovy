@@ -5,7 +5,6 @@ import com.knowops.ci.jenkins.agent.AgentSpec
 
 class BaseSpec implements Serializable {
 
-    ProjectSpec project
     final Object script
     final AgentSpec ag
 
@@ -51,12 +50,4 @@ class BaseSpec implements Serializable {
         this.ag.call()
     }
 
-
-    ProjectSpec getProject() {
-        return this.project
-    }
-
-    void setProject(ProjectSpec project) {
-        this.project = project
-    }
 }
