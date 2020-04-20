@@ -2,7 +2,10 @@
 
 import groovy.lang.DelegatesTo
 
+import com.knowops.ci.jenkins.core.ProjectSpec
 import com.knowops.ci.jenkins.core.WorkflowSpec
+
+ProjectSpec project
 
 void call(Closure<?> wf) {
 
