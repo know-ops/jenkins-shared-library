@@ -21,7 +21,7 @@ class ProjectSpec extends BaseSpec {
 
     ProjectSpec(String p, Object s) {
         super(p, s)
-        println s.libraryResource('config/project.yaml')
+        this.buildTool = s.libraryResource('config/project.yaml')
     }
 
     void setName(String n) {
