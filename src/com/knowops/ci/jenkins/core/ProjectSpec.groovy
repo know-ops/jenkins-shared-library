@@ -126,7 +126,7 @@ class ProjectSpec extends BaseSpec {
                                         script: 'github-linguist --json'
                                     )
 
-                                    project.language = project.parseJson(languageJson) as ArrayList
+                                    project.language = project.parseJson(languageJson).keySet() as ArrayList
                                 }
                             }
                         }
