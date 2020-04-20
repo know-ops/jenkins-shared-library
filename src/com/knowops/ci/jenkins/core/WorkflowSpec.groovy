@@ -29,6 +29,7 @@ class WorkflowSpec extends BaseSpec {
         this.project.init()
 
         this.stages('', this.project.&call)
+        this.script.echo "${this.class}.project"
     }
 
     void stages(String name, Closure<?> stgs) {
