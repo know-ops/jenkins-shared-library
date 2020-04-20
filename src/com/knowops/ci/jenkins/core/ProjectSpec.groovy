@@ -125,7 +125,7 @@ class ProjectSpec extends BaseSpec {
 
         switch (this.ag.platform) {
             case 'kubernetes':
-                this.ag.label(this.config['kubernetes']['node']['project'])
+                this.ag.label(this.config['kubernetes']['node']['project']['label'])
                 if (this.autodetect) {
                     this.ag.stages('Project: Autodetect') {
                         parallel true
