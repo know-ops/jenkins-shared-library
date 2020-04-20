@@ -44,7 +44,7 @@ Config: ${project.config}
 
                 steps {
                     script {
-                        def fields = env
+                        def fields = env.getEnvironment()
 
                         fields.each { value -> 
                             println("${value}")
