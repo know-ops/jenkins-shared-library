@@ -11,11 +11,6 @@ import org.yaml.snakeyaml.Yaml
  * Simple class to run a CI/CD pipeline
  */
 class ProjectSpec extends BaseSpec {
-    Map.metaClass.merge = { Map rhs ->
-        def lhs = delegate // or delegate.clone() to make delegate immutable
-        rhs.each { k, v -> lhs[k] = lhs[k] in Map ? lhs[k].merge(v) : (lhs[k] != null ? lhs[k] && v : v) }   
-        lhs
-    }
 
     private String name
     private String repository
