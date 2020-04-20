@@ -51,4 +51,12 @@ class BaseSpec implements Serializable {
         this.ag.call()
     }
 
+
+    ProjectSpec getProject() {
+        return this.project
+    }
+
+    void setProject(ProjectSpec project) {
+        this.project = project
+    }
 }
