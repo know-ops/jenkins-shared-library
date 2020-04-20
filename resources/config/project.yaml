@@ -2,6 +2,8 @@ kubernetes:
   node:
     project:
       label: 'k8s-project-agent'
+    build:
+      label: 'k8s-agent'
 
 node:
   project:

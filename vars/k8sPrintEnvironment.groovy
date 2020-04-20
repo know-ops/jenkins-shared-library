@@ -13,7 +13,7 @@ void call(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=ProjectSpec) Closu
 
             stage('Project') {
                 agent {
-                    label 'k8s-agent'
+                    label project.config['kubernetes']['node']['build']['label']
                 }
 
                 steps {
@@ -29,7 +29,7 @@ Config: ${project.config}
 
             stage('Node Environment') {
                 agent {
-                    label 'k8s-agent'
+                    label project.config['kubernetes']['node']['build']['label']
                 }
 
                 steps {
@@ -39,7 +39,7 @@ Config: ${project.config}
 
             stage('Pipeline Environment') {
                 agent {
-                    label 'k8s-agent'
+                    label project.config['kubernetes']['node']['build']['label']
                 }
 
                 steps {
