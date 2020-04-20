@@ -23,5 +23,7 @@ void doWorkflow(WorkflowSpec workflow, @DelegatesTo(strategy=Closure.DELEGATE_ON
     wf.delegate = workflow
     wf()
 
+    workflow.stages('Project', workflow.&project)
+
     workflow()
 }
