@@ -125,6 +125,7 @@ class ProjectSpec extends BaseSpec {
 
         switch (this.ag.platform) {
             case 'kubernetes':
+                this.script.echo this.config.kubernetes.node.label
                 this.ag.label(this.config.kubernetes.node.label)
                 if (this.autodetect) {
                     this.ag.stages('Project: Autodetect') {
