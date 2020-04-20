@@ -22,6 +22,7 @@ Name: ${project.name}
 Repository: ${project.repository}
 Language: ${project.language}
 Build Tool: ${project.buildTool}
+Config: ${project.config}
                     """
                 }
             }
@@ -43,13 +44,11 @@ Build Tool: ${project.buildTool}
 
                 steps {
                     script {
-                        def fields = scm.branches
+                        def fields = env
 
                         fields.each { value -> 
                             println("${value}")
                         }
-
-                        println(env.PATH)
                     }
                 }
             }
