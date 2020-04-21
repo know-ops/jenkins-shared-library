@@ -46,8 +46,8 @@ Config: ${project.config}
                     script {
                         def fields = env.getEnvironment()
 
-                        fields.each { value -> 
-                            println("${value}")
+                        fields.each { key, value -> 
+                            println("${key} = ${value}")
                         }
                     }
                 }
