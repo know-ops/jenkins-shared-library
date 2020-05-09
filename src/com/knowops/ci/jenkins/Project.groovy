@@ -62,7 +62,7 @@ class Project implements Serializable {
 
         Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
 
-        this.steps.echo core
+        this.steps.echo "${core}"
 
         // this.platform = new Platform(core.platform, this.steps)
 
