@@ -86,11 +86,4 @@ class Project implements Serializable {
         this.project(overrides)
     }
 
-    private void init(String projectStage, Object steps) {
-
-        this.stage = projectStage
-        this.steps = steps
-
-    }
-
 }
