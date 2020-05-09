@@ -33,7 +33,7 @@ private void exec(Project project, Closure<?> overrides) {
 
 private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
 
-    println stage
+    println this.stage
 
     project.init(stage)
 
