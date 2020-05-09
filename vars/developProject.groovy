@@ -1,10 +1,12 @@
 #!/usr/bin/env groovy
 
 import groovy.lang.DelegatesTo
+import groovy.transform.Field
 
 import com.knowops.ci.jenkins.Project
 
-public String stage = 'development'
+@groovy.transform.Field
+String stage = 'development'
 
 void call(String projectType, Closure<?> overrides = { }) {
 
