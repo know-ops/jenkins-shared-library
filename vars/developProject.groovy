@@ -4,7 +4,7 @@ import groovy.lang.DelegatesTo
 
 import com.knowops.ci.jenkins.Project
 
-String stage = 'development'
+public String stage = 'development'
 
 void call(String projectType, Closure<?> overrides = { }) {
 
@@ -32,6 +32,8 @@ private void exec(Project project, Closure<?> overrides) {
 }
 
 private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
+
+    println stage
 
     project.init(stage)
 
