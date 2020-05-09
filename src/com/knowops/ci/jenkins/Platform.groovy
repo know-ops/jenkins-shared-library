@@ -47,7 +47,7 @@ class Platform {
 
     void init(String stage) {
 
-        Yaml yaml = new YamlParser()
+        YamlParser yaml = new YamlParser()
 
         Map<String,Object> platforms = yaml.load(this.steps.libraryResource('config/platforms.yaml'))
 
