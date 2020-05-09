@@ -65,7 +65,7 @@ class Project implements Serializable {
         this.platform = new Platform(core.platform, this.steps)
 
         if (core.spec.keySet().contains('autodetect')) {
-            core.spec['autodetect'].each { k, v ->
+            core.spec.autodetect.each { k, v ->
                 this.autodetect[k] = v
             }
         }
