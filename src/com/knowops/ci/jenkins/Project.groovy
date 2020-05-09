@@ -75,7 +75,7 @@ class Project implements Serializable {
         }
 
         this.steps.echo "${core}"
-        this.steps.echo "${this}"
+        this.steps.echo "${this.dir}"
         // this.platform.init(stage)
 
         // this.steps.setProperty('platform', this.platform)
