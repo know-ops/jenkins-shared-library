@@ -12,7 +12,8 @@ spec:
     nodes:
       project:
         autodetect:
-        - k8s-project-agent
+          labels:
+          - k8s-project-agent
 
       development:
         java: &javaAgents
@@ -25,10 +26,10 @@ spec:
           fast-fail: false
 
         groovy: 
-        <<: *javaAgents
+          <<: *javaAgents
 
         kotlin: 
-        <<: *javaAgents
+          <<: *javaAgents
 
         container: &kanikoAgent
           labels:

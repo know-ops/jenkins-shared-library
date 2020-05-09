@@ -7,9 +7,13 @@ metadata:
 spec:
   dir: '.jenkins/'
 
-  platform: kubernetes
-
   autodetect:
     language: true
     tool: true
     type: true
+
+  project:
+    platform: kubernetes
+
+  development:
+    platform: kubernetes
