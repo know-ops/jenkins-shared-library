@@ -73,7 +73,10 @@ private void auto(Project project) {
 private void detect(Project project) {
 
     workflow('project') {
-        agent 'project'
+        agent {
+            stage = 'project'
+            node = 'autodetect'
+        }
 
         stages {
             stage('checkout') {
@@ -99,7 +102,7 @@ private void detect(Project project) {
             }
 
             stage('language') {
-                dependsOn: [
+                dependsOn [
                     'checkout',
                 ]
 
@@ -115,7 +118,7 @@ private void detect(Project project) {
             }
 
             stage('tool') {
-                dependsOn: [
+                dependsOn [
                     'checkout',
                 ]
 
