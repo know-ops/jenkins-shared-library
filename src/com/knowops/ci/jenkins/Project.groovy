@@ -22,13 +22,13 @@ class Project implements Serializable {
 
         this.type = projectType
 
-        this.init(steps)
+        this.steps = steps
 
     }
 
     Project(Object steps) {
 
-        this.init(steps)
+        this.init = steps
 
     }
 
