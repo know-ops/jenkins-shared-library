@@ -1,0 +1,15 @@
+apiVersion: v1alpha1
+name: jenkins-pipeline-config
+metadata:
+  labels:
+    com.know-ops.ci/tool: jenkins
+    com.know-ops.ci.jenkins/config: core
+spec:
+  dir: '.jenkins/'
+
+  platform: kubernetes
+
+  autodetect:
+    language: true
+    tool: true
+    type: true

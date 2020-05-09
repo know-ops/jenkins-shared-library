@@ -1,0 +1,46 @@
+apiVersion: v1alpha1
+name: jenkins-pipeline-platforms
+metadata:
+  labels:
+    com.know-ops.ci/tool: jenkins
+    com.know-ops.ci.jenkins/config: platforms
+spec:
+  kubernetes:
+    agent: 
+      type: kubernetes
+
+    nodes:
+      project:
+        autodetect:
+        - k8s-project-agent
+
+      development:
+        java: &javaAgents
+          labels:
+          - k8s-openjdk8-agent
+          - k8s-openjdk11-agent
+          - k8s-openjdk14-agent
+
+          matrix: true
+          fast-fail: false
+
+        groovy: 
+        <<: *javaAgents
+
+        kotlin: 
+        <<: *javaAgents
+
+        container: &kanikoAgent
+          labels:
+          - k8s-kaniko-agent
+
+          matrix: false
+          fast-fail: false
+
+      release:
+        github:
+        - k8s-github-agent
+
+        container: 
+        <<: *kanikoAgent
+

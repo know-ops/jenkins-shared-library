@@ -1,0 +1,96 @@
+#!/usr/bin/env groovy
+package com.knowops.ci.jenkins
+
+import groovy.lang.DelegatesTo
+
+import com.knowops.ci.jenins.utils.Yaml
+
+class Project implements Serializable {
+
+    String type = ''
+    String stage = ''
+    String dir = '.jenkins'
+    Platform platform
+    Map<String,Boolean> autodetect = [
+        'language': false,
+        'tool': false,
+        'type': false,
+    ]
+    Object steps
+
+    Project(String projectType, Object steps) {
+
+        this.type = projectType
+
+        this.init(steps)
+
+    }
+
+    Project(Object steps) {
+
+        this.init(steps)
+
+    }
+
+    void autodetect(@DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
+
+        overrides.resolveStrategy = Closure.DELEGATE_FIRST
+        overrides.delegate = this.autodetect
+        overrides()
+
+    }
+
+    void platform(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Platform) Closure<?> overrides) {
+
+        overrides.resolveStrategy = Closure.DELEGATE_FIRST
+        overrides.delegate = this.platform
+        overrides()
+
+    }
+
+    void project(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Project) Closure<?> overrides) {
+
+        overrides.resolveStrategy = Closure.DELEGATE_FIRST
+        overrides.delegate = this
+        overrides()
+
+    }
+
+    void init(String stage) {
+
+        Yaml yaml = new Yaml()
+
+        Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
+
+        this.platform = new Platform(core.platform, this.steps)
+
+        if (core.keySet().contains('autodetect')) {
+            core['autodetect'].each { k, v ->
+                this.autodetect[k] = v
+            }
+        }
+
+        if (core.keySet().contains('dir')) {
+            this.dir = core.dir
+        }
+
+        this.platform.init(stage)
+
+        this.steps.setProperty('platform', this.platform)
+        this.steps.setProperty('project', this)
+
+    }
+
+    void methodMissing(String projectType, Closure overrides) {
+        this.type = projectType
+        this.project(overrides)
+    }
+
+    private void init(String projectStage, Object steps) {
+
+        this.stage = projectStage
+        this.steps = steps
+
+    }
+
+}
