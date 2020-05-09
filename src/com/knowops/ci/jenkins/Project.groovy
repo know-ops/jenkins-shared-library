@@ -58,7 +58,7 @@ class Project implements Serializable {
 
     void init(String stage) {
 
-        Yaml yaml = new YamlParser()
+        YamlParser yaml = new YamlParser()
 
         Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
 
