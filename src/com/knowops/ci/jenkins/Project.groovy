@@ -3,7 +3,7 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
-import com.knowops.ci.jenkins.utils.Yaml
+import com.knowops.ci.jenkins.utils.YamlParser
 
 class Project implements Serializable {
 
@@ -58,7 +58,7 @@ class Project implements Serializable {
 
     void init(String stage) {
 
-        Yaml yaml = new Yaml()
+        Yaml yaml = new YamlParser()
 
         Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
 
