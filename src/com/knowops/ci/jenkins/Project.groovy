@@ -62,7 +62,7 @@ class Project implements Serializable {
 
         Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
 
-        this.platform = new Platform(core.platform, this.steps)
+        this.platform = new Platform(core.spec[stage].platform, this.steps)
 
         if (core.spec.keySet().contains('autodetect')) {
             core.spec.autodetect.each { k, v ->
@@ -75,7 +75,7 @@ class Project implements Serializable {
         }
 
         this.steps.echo "${core}"
-        this.steps.echo "${this.dir}"
+        this.steps.echo "${this.platform.name}"
         // this.platform.init(stage)
 
         // this.steps.setProperty('platform', this.platform)
