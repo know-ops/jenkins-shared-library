@@ -6,7 +6,7 @@ import com.knowops.ci.jenkins.Project
 
 String stage = 'development'
 
-void call(String projectType, Closure<?> overrides) {
+void call(String projectType, Closure<?> overrides = { }) {
 
     Project project = new Project(projectType, this)
 
@@ -14,27 +14,11 @@ void call(String projectType, Closure<?> overrides) {
 
 }
 
-void call(Closure<?> overrides) {
+void call(Closure<?> overrides = { }) {
 
     Project project = new Project(this)
 
     exec(project, overrides)
-
-}
-
-void call(String projectType) {
-
-    Project project = new Project(projectType, this)
-
-    exec(project, stage)
-
-}
-
-void call() {
-
-    Project project = new Project(this)
-
-    exec(project, stage)
 
 }
 
@@ -47,21 +31,15 @@ private void exec(Project project, Closure<?> overrides) {
 
 }
 
-private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides = { }) {
+private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
 
-    init(project)
+    project.init(stage)
 
     if (overrides) {
         overrides.resolveStrategy = Closure.DELEGATE_FIRST
         overrides.delegate = project
         overrides()
     }
-
-}
-
-private void init(Project project) {
-
-    project.init(stage)
 
 }
 
