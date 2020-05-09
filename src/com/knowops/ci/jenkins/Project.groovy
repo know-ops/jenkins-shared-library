@@ -28,7 +28,7 @@ class Project implements Serializable {
 
     Project(Object steps) {
 
-        this.init = steps
+        this.steps = steps
 
     }
 
