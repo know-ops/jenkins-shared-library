@@ -3,7 +3,7 @@ package com.knowops.ci.jenkins
 
 import groovy.lang.DelegatesTo
 
-import com.knowops.ci.jenins.utils.Yaml
+import com.knowops.ci.jenkins.utils.Yaml
 
 class Project implements Serializable {
 
