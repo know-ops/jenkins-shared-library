@@ -19,21 +19,21 @@ class Platform {
     }
 
 
-    void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Agent) Closure<?> overrides) {
+    // void agent(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Agent) Closure<?> overrides) {
 
-        overrides.resolveStrategy = Closure.DELEGATE_FIRST
-        overrides.delegate = this.agent
-        overrides()
+    //     overrides.resolveStrategy = Closure.DELEGATE_FIRST
+    //     overrides.delegate = this.agent
+    //     overrides()
 
-    }
+    // }
 
-    void nodes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Nodes) Closure<?> overrides) {
+    // void nodes(@DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Nodes) Closure<?> overrides) {
 
-        overrides.resolveStrategy = Closure.DELEGATE_FIRST
-        overrides.delegate = this.nodes
-        overrides()
+    //     overrides.resolveStrategy = Closure.DELEGATE_FIRST
+    //     overrides.delegate = this.nodes
+    //     overrides()
 
-    }
+    // }
 
     void methodMissing(String name, @DelegatesTo(strategy=Closure.DELEGATE_FIRST, value=Platform) Closure<?> platform) {
 
@@ -55,4 +55,5 @@ class Platform {
         this.nodes = platforms[this.name]['nodes'][stage]
 
     }
+
 }
