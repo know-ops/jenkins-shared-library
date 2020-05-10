@@ -60,21 +60,21 @@ class Project implements Serializable {
 
         YamlParser yaml = new YamlParser()
 
-        Map<String,Object> core = yaml.load(this.steps.libraryResource('config/core.yaml'))
+        Map<String,Object> proj = yaml.load(this.steps.libraryResource('config/project.yaml'))
 
-        this.platform = new Platform(core[phase].platform, this.steps)
+        this.platform = new Platform(proj[phase].platform, this.steps)
 
-        if (core.keySet().contains('autodetect')) {
-            core.autodetect.each { k, v ->
+        if (proj.keySet().contains('autodetect')) {
+            proj.autodetect.each { k, v ->
                 this.autodetect[k] = v
             }
         }
 
-        if (core.keySet().contains('dir')) {
-            this.dir = core.dir
+        if (proj.keySet().contains('dir')) {
+            this.dir = proj.dir
         }
 
-        this.steps.echo "${core}"
+        this.steps.echo "${proj}"
         this.steps.echo "${this.platform.name}"
         // this.platform.init(phase)
 

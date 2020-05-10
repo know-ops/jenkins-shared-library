@@ -1,0 +1,26 @@
+autodetect:
+  language: true
+  tool: true
+  type: true
+
+dir: '.jenkins/'
+
+project:
+  platform:
+    project: kubernetes
+
+jenkins-library:
+  platform:
+    development: kubernetes
+    release: kubernetes
+    deployment: kubernetes
+
+  nodes:
+    development:
+      groovy:
+        labels:
+        - k8s-openjdk8-agent
+
+      kotlin: {}
+
+      matrix: false
