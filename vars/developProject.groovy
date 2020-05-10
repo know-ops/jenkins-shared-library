@@ -28,7 +28,7 @@ private void exec(Project project, Closure<?> overrides) {
 
     init(project, overrides)
     println project.type
-    println project.autodetect
+    println project.platform.nodes.autodetect
     // auto(project)
 
 }
@@ -78,7 +78,7 @@ private void detect(Project project) {
 
     workflow('project') {
         agent {
-            node = 'autodetect'
+            node project.platform.nodes.autodetect
         }
 
         stages {
