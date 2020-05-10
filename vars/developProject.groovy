@@ -6,7 +6,7 @@ import groovy.transform.Field
 import com.knowops.ci.jenkins.Project
 
 @groovy.transform.Field
-String phase = 'development'
+String phase = 'project'
 
 void call(String projectType, Closure<?> overrides = { }) {
 
@@ -29,6 +29,9 @@ private void exec(Project project, Closure<?> overrides) {
     init(project, overrides)
 
     workflow('project') {
+        project = project
+        phase = phase
+
         stages {
             agent {
                 node platform.nodes.autodetect

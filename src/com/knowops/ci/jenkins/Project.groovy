@@ -7,7 +7,7 @@ import com.knowops.ci.jenkins.utils.YamlParser
 
 class Project implements Serializable {
 
-    String type = ''
+    String type = 'project'
     String phase = ''
     String dir = '.jenkins'
     Platform platform
@@ -62,13 +62,8 @@ class Project implements Serializable {
 
         Map<String,Object> proj = yaml.load(this.steps.libraryResource('config/project.yaml'))
 
-        if (this.type) {
-            this.platform = new Platform(proj[this.type].platform[phase])
-            this.platform.init(phase)
-        } else {
-            this.platform = new Platform(proj.project.platform.project, this.steps)
-            this.platform.init('project')
-        }
+        this.platform = new Platform(proj[this.type].platform[phase])
+        this.platform.init(phase)
 
         if (proj.keySet().contains('autodetect')) {
             proj.autodetect.each { k, v ->
