@@ -1,39 +1,47 @@
 kubernetes:
-  agent: 
+  default: &k8sDefault 
     type: kubernetes
 
-  nodes:
-    project:
-      autodetect:
-        labels:
-        - k8s-project-agent
+  project:
+    autodetect:
+      <<: *k8sDefault
+      
+      labels:
+      - k8s-project-agent
 
-    development:
-      java: &javaAgents
-        labels:
-        - k8s-openjdk8-agent
-        - k8s-openjdk11-agent
-        - k8s-openjdk14-agent
+  development:
+    java: &javaAgents
+      <<: *k8sDefault
 
-        matrix: true
-        fast-fail: false
+      labels:
+      - k8s-openjdk8-agent
+      - k8s-openjdk11-agent
+      - k8s-openjdk14-agent
 
-      groovy: 
-        <<: *javaAgents
+      matrix: true
+      fast-fail: false
 
-      kotlin: 
-        <<: *javaAgents
+    groovy: 
+      <<: *javaAgents
 
-      container: &kanikoAgent
-        labels:
-        - k8s-kaniko-agent
+    kotlin: 
+      <<: *javaAgents
 
-        matrix: false
-        fast-fail: false
+    kaniko: &kanikoAgent
+      <<: *k8sDefault
 
-    release:
-      github:
+      labels:
+      - k8s-kaniko-agent
+
+      matrix: false
+      fast-fail: false
+
+  release:
+    github:
+      <<: *k8sDefault
+
+      labels:
       - k8s-github-agent
 
-      container: 
-      <<: *kanikoAgent
+    kaniko: 
+    <<: *kanikoAgent

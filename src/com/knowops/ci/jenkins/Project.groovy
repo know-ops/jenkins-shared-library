@@ -62,7 +62,11 @@ class Project implements Serializable {
 
         Map<String,Object> proj = yaml.load(this.steps.libraryResource('config/project.yaml'))
 
-        this.platform = new Platform(proj.project.platform[phase], this.steps)
+        if (this.type) {
+            this.platform = new Platform(proj[this.type].platform[phase])
+        } else {
+            this.platform = new Platform(proj.project.platform[phase], this.steps)
+        }
 
         if (proj.keySet().contains('autodetect')) {
             proj.autodetect.each { k, v ->
@@ -74,9 +78,9 @@ class Project implements Serializable {
             this.dir = proj.dir
         }
 
+        this.platform.init(phase)
         this.steps.echo "${proj}"
-        this.steps.echo "${this.platform.name}"
-        // this.platform.init(phase)
+        this.steps.echo "${this.platform.nodes}"
 
         // this.steps.setProperty('platform', this.platform)
         // this.steps.setProperty('project', this)
