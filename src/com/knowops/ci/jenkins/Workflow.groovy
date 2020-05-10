@@ -15,6 +15,15 @@ class Workflow implements Serializable {
         this.steps = steps
     }
 
+    void project(Project p) {
+        this.steps.echo 'Setting project'
+        this.project = p
+
+        this.steps.setProperty('project', this.project)
+        this.steps.setProperty('platform', this.project.platform)
+
+    }
+
     void dependsOn() {
 
     }
@@ -25,11 +34,6 @@ class Workflow implements Serializable {
 
     void post() {
 
-    }
-
-    void project(Project p) {
-        this.steps.echo 'Setting project'
-        this.project = p
     }
 
 }

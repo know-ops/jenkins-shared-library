@@ -11,6 +11,14 @@ class Base implements Serializable {
         this.steps = steps
     }
 
+    void project(Project p) {
+        this.steps.echo 'Setting project'
+        this.project = p
+
+        this.steps.setProperty('platform', this.platform)
+
+    }
+
     void dependsOn(List ids) {
 
     }
