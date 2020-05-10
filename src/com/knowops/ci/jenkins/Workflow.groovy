@@ -27,7 +27,7 @@ class Workflow implements Serializable {
 
     }
 
-    void setProject(Project p) {
+    void project(Project p) {
         this.steps.echo 'Setting project'
         this.project = p
     }
