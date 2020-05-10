@@ -64,8 +64,10 @@ class Project implements Serializable {
 
         if (this.type) {
             this.platform = new Platform(proj[this.type].platform[phase])
+            this.platform.init(phase)
         } else {
             this.platform = new Platform(proj.project.platform.project, this.steps)
+            this.platform.init('project')
         }
 
         if (proj.keySet().contains('autodetect')) {
@@ -78,7 +80,6 @@ class Project implements Serializable {
             this.dir = proj.dir
         }
 
-        this.platform.init(phase)
         this.steps.echo "${proj}"
         this.steps.echo "${this.platform.nodes}"
 
