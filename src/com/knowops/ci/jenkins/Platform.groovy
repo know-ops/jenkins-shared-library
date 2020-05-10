@@ -45,14 +45,14 @@ class Platform {
 
     }
 
-    void init(String stage) {
+    void init(String phase) {
 
         YamlParser yaml = new YamlParser()
 
         Map<String,Object> platforms = yaml.load(this.steps.libraryResource('config/platforms.yaml'))
 
         this.agent = platforms[this.name]['agent']
-        this.nodes = platforms[this.name]['nodes'][stage]
+        this.nodes = platforms[this.name]['nodes'][phase]
 
     }
 

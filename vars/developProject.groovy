@@ -6,7 +6,7 @@ import groovy.transform.Field
 import com.knowops.ci.jenkins.Project
 
 @groovy.transform.Field
-String stage = 'development'
+String phase = 'development'
 
 void call(String projectType, Closure<?> overrides = { }) {
 
@@ -35,9 +35,9 @@ private void exec(Project project, Closure<?> overrides) {
 
 private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
 
-    println this.stage
+    println phase
 
-    project.init(stage)
+    project.init(phase)
 
     if (overrides) {
         overrides.resolveStrategy = Closure.DELEGATE_FIRST
