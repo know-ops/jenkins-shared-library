@@ -26,7 +26,7 @@ void call(Closure<?> overrides = { }) {
 
 private void exec(Project p, Closure<?> overrides) {
 
-    init(project, overrides)
+    init(p, overrides)
 
     workflow('project') {
         project {
