@@ -57,6 +57,7 @@ class Project implements Serializable {
     }
 
     void init(String phase) {
+        this.phase = phase
 
         YamlParser yaml = new YamlParser()
 
