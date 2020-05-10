@@ -13,6 +13,7 @@ void call(String id, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> wo
     work()
 
     println wf.id
-    println wf.project
+    println wf.project.phase
+    println wf.project.platform.nodes
 
 }
