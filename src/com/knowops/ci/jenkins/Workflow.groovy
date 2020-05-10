@@ -29,7 +29,7 @@ class Workflow implements Serializable {
 
     void project(Closure<Project> p) {
         this.steps.echo 'Setting project'
-        this.project = p
+        this.project = p()
     }
 
 }
