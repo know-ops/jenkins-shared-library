@@ -27,9 +27,14 @@ class Workflow implements Serializable {
 
     }
 
-    void setProject(Project p) {
+    void project(Closure<Project> p) {
         this.steps.echo "Setting project with ${p.name}"
-        this.project = p
+        this.project = p()
+    }
+
+    void phase(Closure<String> p) {
+        this.steps.echo "Setting phase"
+        this.project = p()
     }
 
 }

@@ -29,8 +29,13 @@ private void exec(Project project, Closure<?> overrides) {
     init(project, overrides)
 
     workflow('project') {
-        project = project
-        phase = phase
+        project {
+            project
+        }
+
+        phase {
+            phase
+        } 
 
         stages {
             agent {
