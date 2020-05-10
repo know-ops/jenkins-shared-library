@@ -29,9 +29,7 @@ private void exec(Project p, Closure<?> overrides) {
     init(p, overrides)
 
     workflow('project') {
-        project {
-            p
-        }
+        project p
 
         stages {
             agent {
