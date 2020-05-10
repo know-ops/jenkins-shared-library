@@ -24,18 +24,14 @@ void call(Closure<?> overrides = { }) {
 
 }
 
-private void exec(Project project, Closure<?> overrides) {
+private void exec(Project p, Closure<?> overrides) {
 
     init(project, overrides)
 
     workflow('project') {
         project {
-            project
+            p
         }
-
-        phase {
-            phase
-        } 
 
         stages {
             agent {
