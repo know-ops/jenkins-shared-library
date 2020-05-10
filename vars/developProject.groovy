@@ -27,15 +27,72 @@ void call(Closure<?> overrides = { }) {
 private void exec(Project project, Closure<?> overrides) {
 
     init(project, overrides)
-    println project.type
-    println platform.nodes.autodetect
-    // auto(project)
+
+    workflow('project') {
+        stages {
+            agent {
+                node platform.nodes.autodetect
+            }
+
+            stage('checkout') {
+                steps {
+                    scm checkout
+                }
+            }
+
+            // stage('type') {
+            //     dependsOn [
+            //         'checkout',
+            //     ]
+
+            //     when {
+            //         expression {
+            //             project.autodetect.type
+            //         }
+            //     }
+
+            //     steps {
+
+            //     }
+            // }
+
+            // stage('language') {
+            //     dependsOn [
+            //         'checkout',
+            //     ]
+
+            //     when {
+            //         expression {
+            //             project.autodetect.language
+            //         }
+            //     }
+
+            //     steps('language') {
+
+            //     }
+            // }
+
+            // stage('tool') {
+            //     dependsOn [
+            //         'checkout',
+            //     ]
+
+            //     when {
+            //         expression {
+            //             project.autodetect.tool
+            //         }
+            //     }
+
+            //     steps {
+
+            //     }
+            // }
+        }
+    }
 
 }
 
 private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> overrides) {
-
-    println phase
 
     project.init(phase)
 
@@ -43,99 +100,6 @@ private void init(Project project, @DelegatesTo(strategy=Closure.DELEGATE_FIRST)
         overrides.resolveStrategy = Closure.DELEGATE_FIRST
         overrides.delegate = project
         overrides()
-    }
-
-}
-
-private void auto(Project project) {
-
-    if (project.type == 'Multi') {
-        project.autodetect['type'] = true
-    } else if (project.type) {
-        project.autodetect = [
-            'type': false,
-            'language': false,
-            'tool': false,
-        ]
-    }
-
-    if (!project.type || project.type == 'Multi') {
-        project.autodetect.each { selection, auto ->
-            if (auto) {
-                detect(project)
-
-                return true￼
-￼
-            }
-
-        }
-
-    }
-
-}
-
-private void detect(Project project) {
-
-    workflow('project') {
-        agent {
-            node project.platform.nodes.autodetect
-        }
-
-        stages {
-            stage('checkout') {
-                steps {
-                    scm checkout
-                }
-            }
-
-            stage('type') {
-                dependsOn [
-                    'checkout',
-                ]
-
-                when {
-                    expression {
-                        project.autodetect['type']
-                    }
-                }
-
-                steps {
-
-                }
-            }
-
-            stage('language') {
-                dependsOn [
-                    'checkout',
-                ]
-
-                when {
-                    expression {
-                        project.autodetect['language']
-                    }
-                }
-
-                steps('language') {
-
-                }
-            }
-
-            stage('tool') {
-                dependsOn [
-                    'checkout',
-                ]
-
-                when {
-                    expression {
-                        project.autodetect['tool']
-                    }
-                }
-
-                steps {
-
-                }
-            }
-        }
     }
 
 }

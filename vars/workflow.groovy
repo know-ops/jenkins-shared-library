@@ -2,29 +2,12 @@
 
 import groovy.lang.DelegatesTo
 
-import com.knowops.ci.jenkins.core.ProjectSpec
-import com.knowops.ci.jenkins.core.WorkflowSpec
+import com.knowops.ci.jenkins.Project
 
-ProjectSpec project
+void call(String id, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> work) {
 
-void call(Closure<?> wf) {
+    println id
+    println project.type
+    println platform.nodes
 
-    WorkflowSpec workflow = new WorkflowSpec(this)
-    doWorkflow(workflow, wf)
-
-}
-
-void call(String platform, Closure<?> wf) {
-
-    WorkflowSpec workflow = new WorkflowSpec(platform, this)
-    doWorkflow(workflow, wf)
-
-}
-
-void doWorkflow(WorkflowSpec workflow, @DelegatesTo(strategy=Closure.DELEGATE_ONLY, value=WorkflowSpec) Closure<?> wf) {
-    wf.resolveStrategy = Closure.DELEGATE_FIRST
-    wf.delegate = workflow
-    wf()
-
-    workflow()
 }

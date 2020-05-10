@@ -80,11 +80,7 @@ class Project implements Serializable {
             this.dir = proj.dir
         }
 
-        this.steps.echo "${proj}"
-        this.steps.echo "${this.platform.nodes}"
-
         this.steps.setProperty('platform', this.platform)
-        // this.steps.setProperty('project', this)
 
     }
 

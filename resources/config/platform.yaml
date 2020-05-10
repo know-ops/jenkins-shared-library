@@ -3,7 +3,7 @@ kubernetes:
     type: kubernetes
 
   project:
-    autodetect:
+    project:
       <<: *k8sDefault
       
       labels:
