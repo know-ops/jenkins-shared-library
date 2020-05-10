@@ -8,9 +8,11 @@ class Workflow implements Serializable {
     Project project
     String phase
     String id
+    Object steps
 
-    Workflow(String id) {
+    Workflow(String id, steps) {
         this.id = id
+        this.steps = steps
     }
 
     void dependsOn() {
@@ -24,4 +26,10 @@ class Workflow implements Serializable {
     void post() {
 
     }
+
+    void setProject(Project p) {
+        this.steps.echo "Setting project with ${p.name}"
+        this.project = p
+    }
+
 }

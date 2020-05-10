@@ -6,7 +6,7 @@ import com.knowops.ci.jenkins.Workflow
 
 void call(String id, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> work) {
 
-    Workflow wf = new Workflow(id)
+    Workflow wf = new Workflow(id, this)
 
     work.resolveStrategy = Closure.DELEGATE_FIRST
     work.delegate = wf
