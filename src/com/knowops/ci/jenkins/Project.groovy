@@ -65,7 +65,7 @@ class Project implements Serializable {
         if (this.type) {
             this.platform = new Platform(proj[this.type].platform[phase])
         } else {
-            this.platform = new Platform(proj.project.platform[phase], this.steps)
+            this.platform = new Platform(proj.project.platform.project, this.steps)
         }
 
         if (proj.keySet().contains('autodetect')) {

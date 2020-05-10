@@ -6,7 +6,7 @@ import groovy.transform.Field
 import com.knowops.ci.jenkins.Project
 
 @groovy.transform.Field
-String phase = 'project'
+String phase = 'development'
 
 void call(String projectType, Closure<?> overrides = { }) {
 
