@@ -17,7 +17,7 @@ class Workflow implements Serializable {
 
     }
 
-    void stages() {
+    void stages(Closure<?> s) {
 
     }
 
