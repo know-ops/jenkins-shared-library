@@ -12,7 +12,7 @@ void call(String id, @DelegatesTo(strategy=Closure.DELEGATE_FIRST) Closure<?> wo
     work.delegate = wf
     work()
 
-    println wf.project.name
     println wf.id
+    println wf.project.name
 
 }
