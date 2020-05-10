@@ -28,7 +28,7 @@ private void exec(Project project, Closure<?> overrides) {
 
     init(project, overrides)
     println project.type
-    println project.platform.nodes.autodetect
+    println platform.nodes.autodetect
     // auto(project)
 
 }
